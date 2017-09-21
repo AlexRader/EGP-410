@@ -8,6 +8,8 @@
 #include <allegro5/allegro_audio.h>
 #include <string>
 
+class UnitManager;
+
 class GraphicsSystem;
 class GraphicsBuffer;
 class GraphicsBufferManager;
@@ -48,6 +50,8 @@ public:
 	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else
 
+	UnitManager* getUnitManager() {return mpUnitManager;};
+
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
@@ -55,6 +59,7 @@ private:
 	GameMessageManager* mpMessageManager;
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
+	UnitManager* mpUnitManager;
 	bool mShouldExit;
 
 	//should be somewhere else
