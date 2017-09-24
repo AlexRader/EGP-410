@@ -5,11 +5,11 @@
 #include "ClickEvent.h"
 #include "UnitManager.h"
 
-UnitManager::UnitManager() : EventListener()
+UnitManager::UnitManager()
 {
 	mPause = false;
 	mNumOfUnits = 0;
-	gpEventSystem->addListener(CLICK_EVENT, this);
+	//gpEventSystem->addListener(CLICK_EVENT, this);
 }
 
 UnitManager::~UnitManager()
@@ -19,21 +19,30 @@ UnitManager::~UnitManager()
 	mNumOfUnits = 0;
 }
 
-/*
-void UnitManager::addUnit(Vector2D loc)
+
+void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
 {
-	KinematicUnit *temp = new KinematicUnit(loc);
+	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, rotationVel, maxVelocity, maxAcceleration);
+
+	if (DYNAMIC_ARRIVE == name)
+	{
+		temp->dynamicArrive(getUnit(0));
+	}
+	else if (DYNAMIC_SEEK == name)
+	{
+		temp->dynamicSeek(getUnit(0));
+	}
 	mUnits[mNumOfUnits] = temp;
 	mNumOfUnits++;
 }
-
-void UnitManager::addUnit(Vector2D loc, Vector2D vel, std::string name)
+/*
+void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, std::string name)
 {
 	KinematicUnit *temp = new KinematicUnit(loc, vel, name);
 	mUnits[mNumOfUnits] = temp;
 	mNumOfUnits++;
 }
-
+*/
 void UnitManager::deleteUnit(int indexPos)
 {
 	if (mUnits.find(indexPos) != mUnits.end())
@@ -42,7 +51,7 @@ void UnitManager::deleteUnit(int indexPos)
 		mUnits.erase(indexPos);
 	}
 }
-
+/*
 void UnitManager::deleteUnit(KinematicUnit* unit)
 {
 	int pos = -1;
@@ -103,19 +112,19 @@ void UnitManager::update(float dt)
 
 }
 
-/*
-void UnitManager::draw()
+
+void UnitManager::draw(GraphicsBuffer* pBuffer)
 {
-	std::map<int, Unit*>::iterator iter;
+	std::map<int, KinematicUnit*>::iterator iter;
 	iter = mUnits.begin();
 
 	while (iter != mUnits.end())
 	{
-		iter->second->draw();
+		iter->second->draw(pBuffer);
 		iter++;
 	}
 }
-
+/*
 void UnitManager::pause()
 {
 	mPause = !mPause;

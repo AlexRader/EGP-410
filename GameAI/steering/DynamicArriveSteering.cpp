@@ -14,6 +14,7 @@ DynamicArriveSteering::DynamicArriveSteering(KinematicUnit *pMover, KinematicUni
 Steering* DynamicArriveSteering::getSteering()
 {
 	Vector2D direction = mpTarget->getPosition() - mpMover->getPosition();
+	//Vector2D direction = gpGame->getUnitManager()->getUnit(0)->getPosition() - mpMover->getPosition();
 	float distance = direction.getLength();
 
 	//are we there?

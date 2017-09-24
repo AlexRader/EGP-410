@@ -3,6 +3,7 @@
 #include "Trackable.h"
 #include "PerformanceTracker.h"
 #include "Defines.h"
+#include "UnitManager.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
@@ -50,7 +51,7 @@ public:
 	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else
 
-	UnitManager* getUnitManager() {return mpUnitManager;};
+	inline UnitManager* getUnitManager() const {return mpUnitManager;};
 
 private:
 	GraphicsSystem* mpGraphicsSystem;
