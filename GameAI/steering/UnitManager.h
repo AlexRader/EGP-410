@@ -24,6 +24,14 @@ public:
 	void update(float dt);
 	void draw(GraphicsBuffer* pBuffer);
 
+	inline int getUnitsLeft() const { return mUnitsLeft; };
+
+	inline int getNumOfUnits() const { return mNumOfUnits; };
+
+	inline int getSize() const { return mUnits.size(); };
+
+	bool findNearestSequentialUnit();
+
 	//void pause();
 
 	//will need to be changed
@@ -35,6 +43,7 @@ private:
 	std::map<int, KinematicUnit*> mUnits;
 	bool mPause;
 	int mNumOfUnits;
+	int mUnitsLeft;
 };
 
 

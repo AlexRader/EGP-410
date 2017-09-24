@@ -103,7 +103,7 @@ bool Game::init()
 		fprintf(stderr, "failed to reserve samples!\n");
 		return false;
 	}
-
+	/*
 	//should probably be done in the InputSystem!
 	if( !al_install_keyboard() )
 	{
@@ -117,7 +117,7 @@ bool Game::init()
 		printf( "Mouse not installed!\n" ); 
 		return false;
 	}
-
+*/
 	//should be somewhere else!
 	al_init_font_addon();
 	if( !al_init_ttf_addon() )
@@ -156,6 +156,7 @@ bool Game::init()
 	}
 
 	mpInputManager = new InputManager();
+	mpInputManager->init();
 	mpUnitManager = new UnitManager();
 	mpMessageManager = new GameMessageManager();
 
@@ -176,13 +177,14 @@ bool Game::init()
 	{
 		pArrowSprite = mpSpriteManager->createAndManageSprite( PLAYER_ICON_SPRITE_ID, pPlayerBuffer, 0, 0, pPlayerBuffer->getWidth(), pPlayerBuffer->getHeight() );
 	}
+	/*
 	GraphicsBuffer* pAIBuffer = mpGraphicsBufferManager->getBuffer( mEnemyIconBufferID );
 	Sprite* pEnemyArrow = NULL;
 	if( pAIBuffer != NULL )
 	{
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
-
+*/
 
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
@@ -193,19 +195,19 @@ bool Game::init()
 	
 	Vector2D pos2( 1000.0f, 500.0f );
 	Vector2D vel2( 0.0f, 0.0f );
-	mpUnitManager->addUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, DYNAMIC_ARRIVE, 180.0f, 100.0f);
+	//mpUnitManager->addUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, DYNAMIC_ARRIVE, 180.0f, 100.0f);
 	//mpAIUnit = new KinematicUnit( pEnemyArrow, pos2, 1, vel2, 0.0f, 180.0f, 100.0f );
 	//give steering behavior
 	//mpAIUnit->dynamicArrive( mpUnit ); 
 	//mpAIUnit->dynamicArrive(mpUnitManager->getUnit(0));
 
-	Vector2D pos3( 500.0f, 500.0f );
+	//Vector2D pos3( 500.0f, 500.0f );
 /*	mpAIUnit2 = new KinematicUnit( pEnemyArrow, pos3, 1, vel2, 0.0f, 180.0f, 100.0f );
 	//give steering behavior
 	//mpAIUnit2->dynamicSeek( mpUnit );  
 	mpAIUnit2->dynamicSeek(mpUnitManager->getUnit(0));
 */
-	mpUnitManager->addUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, DYNAMIC_SEEK, 180.0f, 100.0f);
+	//mpUnitManager->addUnit(pEnemyArrow, pos2, 1, vel2, 0.0f, DYNAMIC_SEEK, 180.0f, 100.0f);
 	return true;
 }
 
@@ -342,6 +344,19 @@ float genRandomFloat()
 {
 	float r = (float)rand()/(float)RAND_MAX;
 	return r;
+}
+
+void Game::createUnit(const std::string name, Vector2D vec)
+{
+	
+	GraphicsBuffer* pAIBuffer = mpGraphicsBufferManager->getBuffer(mEnemyIconBufferID);
+	Sprite* pEnemyArrow = NULL;
+	if (pAIBuffer != NULL)
+	{
+		pEnemyArrow = mpSpriteManager->createAndManageSprite(AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight());
+	}
+
+	mpUnitManager->addUnit(pEnemyArrow, vec, 1, Vector2D(0.0f, 0.0f), 0.0f, name, 180.0f, 100.0f);
 }
 
 /*#include "System.h"

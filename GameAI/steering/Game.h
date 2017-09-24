@@ -59,6 +59,8 @@ public:
 
 	inline void changeEscape() { mShouldExit = !mShouldExit; };
 
+	void createUnit(const std::string name, Vector2D vec);
+
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
@@ -77,10 +79,10 @@ private:
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
 
-	/*
-	KinematicUnit* mpUnit;
+	
+	//KinematicUnit* mpUnit;
 	KinematicUnit* mpAIUnit;
-	KinematicUnit* mpAIUnit2;*/
+	//KinematicUnit* mpAIUnit2;
 };
 
 float genRandomBinomial();//range -1:1 from "Artificial Intelligence for Games", Millington and Funge

@@ -76,6 +76,15 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Messaging</Filter>
     </ClCompile>
+    <ClCompile Include="SpawnDynamicArrive.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnDynamicSeek.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveAi.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -151,6 +160,15 @@
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnDynamicArrive.h">
+      <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnDynamicSeek.h">
+      <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveAi.h">
       <Filter>Header Files\Messaging</Filter>
     </ClInclude>
   </ItemGroup>

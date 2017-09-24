@@ -16,6 +16,8 @@ public:
 
 private:
 	bool mInitialized;
+	ALLEGRO_KEYBOARD_STATE mPreviousState;
+	ALLEGRO_KEYBOARD_STATE mCurrentState;
 
 };
 

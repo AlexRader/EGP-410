@@ -6,6 +6,9 @@
 #include "GameMessageManager.h"
 #include <sstream>
 #include "PlayerMoveToMessage.h"
+#include "SpawnDynamicArrive.h"
+#include "SpawnDynamicSeek.h"
+#include "RemoveAi.h"
 
 InputManager::InputManager()
 {
@@ -84,11 +87,53 @@ void InputManager::update()
 		//get current keyboard state
 		ALLEGRO_KEYBOARD_STATE keyState;
 		al_get_keyboard_state(&keyState);
-
+		al_get_keyboard_state(&mCurrentState);
 		//if escape key was down then exit the loop
 		if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
 		{
 			gpGame->changeEscape();
 		}
+
+		/*
+		if (al_key_down(&keyState, ALLEGRO_KEY_A))
+		{
+			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getUnit(0)->getPosition().getY());
+			GameMessage* pMessage = new SpawnDynamicArrive(pos);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+
+		if (al_key_down(&keyState, ALLEGRO_KEY_S))
+		{
+			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX(), gpGame->getUnitManager()->getUnit(0)->getPosition().getY() - 100);
+			GameMessage* pMessage = new SpawnDynamicSeek(pos);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&keyState, ALLEGRO_KEY_D))
+		{
+			GameMessage* pMessage = new RemoveAi();
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}*/
+		
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
+		{
+			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getUnit(0)->getPosition().getY());
+			GameMessage* pMessage = new SpawnDynamicArrive(pos);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+			//gpGame->createUnit(DYNAMIC_ARRIVE, pos);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_S) && !al_key_down(&mPreviousState, ALLEGRO_KEY_S))
+		{
+			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX(), gpGame->getUnitManager()->getUnit(0)->getPosition().getY() - 100);
+			GameMessage* pMessage = new SpawnDynamicSeek(pos);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+			//gpGame->createUnit(DYNAMIC_ARRIVE, pos);
+		}
+			if (al_key_down(&mCurrentState, ALLEGRO_KEY_D) && !al_key_down(&mPreviousState, ALLEGRO_KEY_D))
+			{
+			GameMessage* pMessage = new RemoveAi();
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+			}
+		
+		mPreviousState = mCurrentState;
 	}
 }
