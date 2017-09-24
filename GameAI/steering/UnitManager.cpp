@@ -8,18 +8,13 @@
 UnitManager::UnitManager()
 {
 	mPause = false;
-	mNumOfUnits = 0;
-	mUnitsLeft = 0;
 
 	//gpEventSystem->addListener(CLICK_EVENT, this);
 }
 
 UnitManager::~UnitManager()
 {
-	mPause = false;
 	clear();
-	mNumOfUnits = 0;
-	mUnitsLeft = 0;
 }
 
 
@@ -35,9 +30,7 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 	{
 		temp->dynamicSeek(getUnit(0));
 	}
-	mUnits[mNumOfUnits] = temp;
-	mNumOfUnits++;
-	mUnitsLeft++;
+	mUnits.push_back(temp);
 }
 /*
 void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, std::string name)
@@ -47,14 +40,12 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 	mNumOfUnits++;
 }
 */
-void UnitManager::deleteUnit(int indexPos)
+void UnitManager::deleteUnit(unsigned int indexPos)
 {
-	if (mUnits.find(indexPos) != mUnits.end())
-	{
-		delete mUnits.at(indexPos);
-		mUnits.erase(indexPos);
-		mUnitsLeft--;
-	}
+	if (indexPos < 0 || indexPos >= mUnits.size())
+		return;
+	delete mUnits.at(indexPos);
+	mUnits.erase(mUnits.begin() + indexPos);
 }
 /*
 void UnitManager::deleteUnit(KinematicUnit* unit)
@@ -81,27 +72,21 @@ void UnitManager::deleteUnit(KinematicUnit* unit)
 */
 KinematicUnit* UnitManager::getUnit(int indexPos)
 {
-	if (mUnits.find(indexPos) != mUnits.end())
 		return mUnits.at(indexPos);
-	else
-		return nullptr;
 }
 
 void UnitManager::clear()
 {
-	std::map<int, KinematicUnit*>::iterator iter;
-	iter = mUnits.begin();
 
-	while (iter != mUnits.end())
-	{
-		delete iter->second;
-		iter++;
-	}
+	for each (KinematicUnit* unit in mUnits)
+		delete unit;
+	
 	mUnits.clear();
 }
 
 void UnitManager::update(float dt)
 {
+	/*
 	std::map<int, KinematicUnit*>::iterator iter;
 	iter = mUnits.begin();
 
@@ -113,6 +98,9 @@ void UnitManager::update(float dt)
 			iter++;
 		}
 	}
+*/
+	for each (KinematicUnit* unit in mUnits)
+		unit->update(dt);
 	//checkOut();
 
 }
@@ -120,6 +108,7 @@ void UnitManager::update(float dt)
 
 void UnitManager::draw(GraphicsBuffer* pBuffer)
 {
+	/*
 	std::map<int, KinematicUnit*>::iterator iter;
 	iter = mUnits.begin();
 
@@ -128,8 +117,12 @@ void UnitManager::draw(GraphicsBuffer* pBuffer)
 		iter->second->draw(pBuffer);
 		iter++;
 	}
+*/
+	for each (KinematicUnit* unit in mUnits)
+		unit->draw(pBuffer);
 }
 
+/*
 bool UnitManager::findNearestSequentialUnit()
 {
 	std::map<int, KinematicUnit*>::iterator iter;
@@ -149,7 +142,7 @@ bool UnitManager::findNearestSequentialUnit()
 	}
 	return found;
 }
-
+*/
 /*
 void UnitManager::pause()
 {

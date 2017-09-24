@@ -3,6 +3,7 @@
 #include "Trackable.h"
 #include "KinematicUnit.h"
 #include <map>
+#include <vector>
 
 class UnitManager : public Trackable
 {
@@ -14,7 +15,7 @@ public:
 	
 	void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
 	//void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, estd::string name);
-	void deleteUnit(int indexPos);
+	void deleteUnit(unsigned int indexPos);
 /*	void deleteUnit(KinematicUnit* unit);*/
 	KinematicUnit* getUnit(int indexPos);
 
@@ -24,13 +25,13 @@ public:
 	void update(float dt);
 	void draw(GraphicsBuffer* pBuffer);
 
-	inline int getUnitsLeft() const { return mUnitsLeft; };
+	//inline int getUnitsLeft() const { return mUnitsLeft; };
 
-	inline int getNumOfUnits() const { return mNumOfUnits; };
+	//inline int getNumOfUnits() const { return mNumOfUnits; };
 
 	inline int getSize() const { return mUnits.size(); };
 
-	bool findNearestSequentialUnit();
+	//bool findNearestSequentialUnit();
 
 	//void pause();
 
@@ -40,10 +41,9 @@ public:
 	//void checkOut();
 
 private:
-	std::map<int, KinematicUnit*> mUnits;
+//	std::map<int, KinematicUnit*> mUnits;
+	std::vector<KinematicUnit*> mUnits;
 	bool mPause;
-	int mNumOfUnits;
-	int mUnitsLeft;
 };
 
 

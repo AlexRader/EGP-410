@@ -177,14 +177,14 @@ bool Game::init()
 	{
 		pArrowSprite = mpSpriteManager->createAndManageSprite( PLAYER_ICON_SPRITE_ID, pPlayerBuffer, 0, 0, pPlayerBuffer->getWidth(), pPlayerBuffer->getHeight() );
 	}
-	/*
+	
 	GraphicsBuffer* pAIBuffer = mpGraphicsBufferManager->getBuffer( mEnemyIconBufferID );
 	Sprite* pEnemyArrow = NULL;
 	if( pAIBuffer != NULL )
 	{
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
-*/
+
 
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
@@ -348,15 +348,7 @@ float genRandomFloat()
 
 void Game::createUnit(const std::string name, Vector2D vec)
 {
-	
-	GraphicsBuffer* pAIBuffer = mpGraphicsBufferManager->getBuffer(mEnemyIconBufferID);
-	Sprite* pEnemyArrow = NULL;
-	if (pAIBuffer != NULL)
-	{
-		pEnemyArrow = mpSpriteManager->createAndManageSprite(AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight());
-	}
-
-	mpUnitManager->addUnit(pEnemyArrow, vec, 1, Vector2D(0.0f, 0.0f), 0.0f, name, 180.0f, 100.0f);
+	mpUnitManager->addUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), vec, 1, Vector2D(0.0f, 0.0f), 0.0f, name, 180.0f, 100.0f);
 }
 
 /*#include "System.h"
