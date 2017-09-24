@@ -4,12 +4,14 @@
 #include "PerformanceTracker.h"
 #include "Defines.h"
 #include "UnitManager.h"
+#include "InputManager.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
 #include <string>
 
 class UnitManager;
+class InputManager;
 
 class GraphicsSystem;
 class GraphicsBuffer;
@@ -47,11 +49,15 @@ public:
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 
+	/*
 	inline KinematicUnit* getPlayerUnit() { return mpUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit2() { return mpAIUnit2; };//should be someplace else
-
+*/
 	inline UnitManager* getUnitManager() const {return mpUnitManager;};
+	inline InputManager* getInputManager() const {return mpInputManager;};
+
+	inline void changeEscape() { mShouldExit = !mShouldExit; };
 
 private:
 	GraphicsSystem* mpGraphicsSystem;
@@ -61,6 +67,7 @@ private:
 	Timer* mpLoopTimer;
 	Timer* mpMasterTimer;
 	UnitManager* mpUnitManager;
+	InputManager* mpInputManager;
 	bool mShouldExit;
 
 	//should be somewhere else
@@ -70,9 +77,10 @@ private:
 	IDType mPlayerIconBufferID;
 	IDType mEnemyIconBufferID;
 
+	/*
 	KinematicUnit* mpUnit;
 	KinematicUnit* mpAIUnit;
-	KinematicUnit* mpAIUnit2;
+	KinematicUnit* mpAIUnit2;*/
 };
 
 float genRandomBinomial();//range -1:1 from "Artificial Intelligence for Games", Millington and Funge

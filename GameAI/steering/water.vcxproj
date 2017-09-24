@@ -24,6 +24,7 @@
     <ClInclude Include="GraphicsBuffer.h" />
     <ClInclude Include="GraphicsBufferManager.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Kinematic.h" />
     <ClInclude Include="KinematicArriveSteering.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="GraphicsBuffer.cpp" />
     <ClCompile Include="GraphicsBufferManager.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Kinematic.cpp" />
     <ClCompile Include="KinematicArriveSteering.cpp" />

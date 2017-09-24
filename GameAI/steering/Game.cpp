@@ -39,6 +39,7 @@ Game::Game()
 	, mpSample(NULL)
 	, mBackgroundBufferID(INVALID_ID)
 	, mpUnitManager(NULL)
+	, mpInputManager(NULL)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -154,6 +155,7 @@ bool Game::init()
 		return false;
 	}
 
+	mpInputManager = new InputManager();
 	mpUnitManager = new UnitManager();
 	mpMessageManager = new GameMessageManager();
 
@@ -213,6 +215,8 @@ void Game::cleanup()
 	//delete units
 	delete mpUnitManager;
 	mpUnitManager = NULL;
+	delete mpInputManager;
+	mpInputManager = NULL;
 	/*
 	//delete units
 	delete mpUnit;
@@ -281,7 +285,7 @@ void Game::processLoop()
 	/*mpAIUnit2->draw( GRAPHICS_SYSTEM->getBackBuffer() );*/
 	
 	mpMessageManager->processMessagesForThisframe();
-
+	/*
 	//get input - should be moved someplace better
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state( &mouseState );
@@ -292,13 +296,13 @@ void Game::processLoop()
 		GameMessage* pMessage = new PlayerMoveToMessage( pos );
 		MESSAGE_MANAGER->addMessage( pMessage, 0 );
 	}
+*/
 
-
-
+	mpInputManager->update();
 	//all this should be moved to InputManager!!!
-	{
+	//{
 		//get mouse state
-		ALLEGRO_MOUSE_STATE mouseState;
+	/*	ALLEGRO_MOUSE_STATE mouseState;
 		al_get_mouse_state( &mouseState );
 
 		//create mouse text
@@ -307,9 +311,9 @@ void Game::processLoop()
 
 		//write text at mouse position
 		al_draw_text( mpFont, al_map_rgb( 255, 255, 255 ), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str() );
-
+		*/
 		mpGraphicsSystem->swap();
-
+		/*
 		//get current keyboard state
 		ALLEGRO_KEYBOARD_STATE keyState;
 		al_get_keyboard_state( &keyState );
@@ -318,8 +322,8 @@ void Game::processLoop()
 		if( al_key_down( &keyState, ALLEGRO_KEY_ESCAPE ) )
 		{
 			mShouldExit = true;
-		}
-	}
+		}*/
+	//}
 }
 
 bool Game::endLoop()
