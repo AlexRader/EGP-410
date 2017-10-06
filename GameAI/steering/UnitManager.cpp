@@ -24,11 +24,14 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 
 	if (DYNAMIC_ARRIVE == name)
 	{
-		temp->dynamicArrive(getUnit(0));
+		//temp->dynamicArrive(getUnit(0));
+		temp->wander();
 	}
 	else if (DYNAMIC_SEEK == name)
 	{
-		temp->dynamicSeek(getUnit(0));
+		//temp->dynamicSeek(getUnit(0));
+		temp->wander();
+
 	}
 	mUnits.push_back(temp);
 }
@@ -121,92 +124,3 @@ void UnitManager::draw(GraphicsBuffer* pBuffer)
 	for each (KinematicUnit* unit in mUnits)
 		unit->draw(pBuffer);
 }
-
-/*
-bool UnitManager::findNearestSequentialUnit()
-{
-	std::map<int, KinematicUnit*>::iterator iter;
-	iter = mUnits.begin();
-	bool found = false;
-	iter++;
-	while (iter != mUnits.end() && found == false)
-	{
-		if (iter->second != nullptr)
-		{
-			if (iter != mUnits.end())
-				deleteUnit(iter->first);
-			found = true;
-		}
-		if (iter != mUnits.end())
-			iter++;
-	}
-	return found;
-}
-*/
-/*
-void UnitManager::pause()
-{
-	mPause = !mPause;
-}
-
-Unit *  UnitManager::checkHit(int x, int y)
-{
-	std::map<int, Unit*>::iterator iter;
-	iter = mUnits.begin();
-
-	while (iter != mUnits.end())
-	{
-		float width = iter->second->getAnim()->getSprite().getWidth();
-		float height = iter->second->getAnim()->getSprite().getHeight();
-		float posX = iter->second->getX();
-		float posY = iter->second->getY();
-		if (x <= posX + (width) && x >= posX)
-		{
-			if (y <= posY + height && y >= posY)
-			{
-				return iter->second;
-			}
-		}
-		iter++;
-	}
-	return nullptr;
-}
-
-void UnitManager::checkOut()
-{
-	std::map<int, Unit*>::iterator iter;
-	iter = mUnits.begin();
-
-		while (iter != mUnits.end())
-		{
-			if (iter->second->getX() > Game::getGame()->getWidth() || iter->second->getX() < -50)
-			{
-				deleteUnit(iter->second);
-				break;
-			}
-			if (iter->second->getY() > Game::getGame()->getHeight() || iter->second->getY() < -50)
-			{
-				deleteUnit(iter->second);
-				break;
-			}
-			iter++;
-		}
-}
-*/
-
-//this needs to be changed to an evet where the player seeks to the target location
-/*
-void UnitManager::handleEvent(const Event& theEvent)
-{
-	
-	if (theEvent.getType() == CLICK_EVENT)
-	{
-		ClickEvent clickEvent = static_cast<const ClickEvent&>(theEvent);
-		KinematicUnit * checkedUnit =  checkHit(clickEvent.getLocX(), clickEvent.getLocY());
-		if (checkedUnit != NULL)
-		{
-			checkedUnit->setName();
-		}
-	}
-}
-*/

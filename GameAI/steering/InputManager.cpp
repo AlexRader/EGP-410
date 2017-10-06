@@ -116,14 +116,16 @@ void InputManager::update()
 		
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
 		{
-			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getUnit(0)->getPosition().getY());
+			//Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getUnit(0)->getPosition().getY());
+			Vector2D pos(300.0f, 300.0f);
 			GameMessage* pMessage = new SpawnDynamicArrive(pos);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 			//gpGame->createUnit(DYNAMIC_ARRIVE, pos);
 		}
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_S) && !al_key_down(&mPreviousState, ALLEGRO_KEY_S))
 		{
-			Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX(), gpGame->getUnitManager()->getUnit(0)->getPosition().getY() - 100);
+			//Vector2D pos(gpGame->getUnitManager()->getUnit(0)->getPosition().getX(), gpGame->getUnitManager()->getUnit(0)->getPosition().getY() - 100);
+			Vector2D pos(300.0f, 300.0f);
 			GameMessage* pMessage = new SpawnDynamicSeek(pos);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 			//gpGame->createUnit(DYNAMIC_ARRIVE, pos);
