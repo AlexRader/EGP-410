@@ -17,32 +17,39 @@ UnitManager::~UnitManager()
 	clear();
 }
 
+void UnitManager::addUnitPlayer(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
+{
+	mpPlayer = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
+}
 
 void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
 {
-	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, rotationVel, maxVelocity, maxAcceleration);
+	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 
+	temp->wander(getPlayer()->settingTarget());
+	/*
 	if (DYNAMIC_ARRIVE == name)
 	{
+		//temp->dynamicSeek(getPlayer());
 		//temp->dynamicArrive(getUnit(0));
-		temp->wander();
+		//temp->wander();
+		temp->wander(getPlayer()->settingTarget());
+		//temp->arrive(getPlayer()->getPosition());
 	}
 	else if (DYNAMIC_SEEK == name)
 	{
-		//temp->dynamicSeek(getUnit(0));
-		temp->wander();
+		//temp->dynamicSeek(getPlayer());
+		//temp->wander();
+		temp->wander(getPlayer()->settingTarget());
+		//temp->arrive(getPlayer()->getPosition());
 
 	}
+	*/
+	
+
 	mUnits.push_back(temp);
 }
-/*
-void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, std::string name)
-{
-	KinematicUnit *temp = new KinematicUnit(loc, vel, name);
-	mUnits[mNumOfUnits] = temp;
-	mNumOfUnits++;
-}
-*/
+
 void UnitManager::deleteUnit(unsigned int indexPos)
 {
 	if (indexPos < 0 || indexPos >= mUnits.size())
@@ -50,29 +57,7 @@ void UnitManager::deleteUnit(unsigned int indexPos)
 	delete mUnits.at(indexPos);
 	mUnits.erase(mUnits.begin() + indexPos);
 }
-/*
-void UnitManager::deleteUnit(KinematicUnit* unit)
-{
-	int pos = -1;
-	std::map<int, KinematicUnit*>::iterator iter;
-	iter = mUnits.begin();
 
-	while (iter != mUnits.end() && iter->second != unit)
-	{
-		if (iter->second == unit)
-			pos = iter->first;
-		iter++;
-	}
-	if (iter->second == unit)
-		pos = iter->first;
-	if (pos != -1)
-	{
-		delete mUnits.at(pos);
-		mUnits.erase(pos);
-	}
-	
-}
-*/
 KinematicUnit* UnitManager::getUnit(int indexPos)
 {
 		return mUnits.at(indexPos);
@@ -85,6 +70,7 @@ void UnitManager::clear()
 		delete unit;
 	
 	mUnits.clear();
+	delete mpPlayer;
 }
 
 void UnitManager::update(float dt)
@@ -102,6 +88,7 @@ void UnitManager::update(float dt)
 		}
 	}
 */
+	mpPlayer->update(dt);
 	for each (KinematicUnit* unit in mUnits)
 		unit->update(dt);
 	//checkOut();
@@ -121,6 +108,7 @@ void UnitManager::draw(GraphicsBuffer* pBuffer)
 		iter++;
 	}
 */
+	mpPlayer->draw(pBuffer);
 	for each (KinematicUnit* unit in mUnits)
 		unit->draw(pBuffer);
 }

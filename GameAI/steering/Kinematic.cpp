@@ -19,13 +19,14 @@ void Kinematic::update( float time)
 {
 	mPosition += mVelocity * time;
 	mOrientation += mRotationVel * time;
+	
 }
 
 void Kinematic::calcNewVelocities( const Steering& theSteering, float time, float maxSpeed, float maxRotationalVelocity )
 {
 	mVelocity += theSteering.getLinear() * time;
 	mRotationVel += theSteering.getAngular() * time;
-
+	
 	//cap the velocities
 	capVelocity( maxSpeed );
 	if( mRotationVel > maxRotationalVelocity )

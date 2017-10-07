@@ -14,13 +14,15 @@ using namespace std;
 
 Steering gNullSteering( gZeroVector2D, 0.0f );
 
-KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, float rotationVel, float maxVelocity, float maxAcceleration)
+KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float orientation, const Vector2D &velocity, std::string name, float rotationVel, float maxVelocity, float maxAcceleration)
 :Kinematic( position, orientation, velocity, rotationVel )
 ,mpSprite(pSprite)
 ,mpCurrentSteering(NULL)
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
+,mName(name)
 {
+	setRandom();
 }
 
 KinematicUnit::~KinematicUnit()
@@ -35,9 +37,21 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 
 void KinematicUnit::update(float time)
 {
+	if (mName != PLAYER)
+	{
+		mRandomChange -= time;
+		if (mRandomChange <= 0)
+		{
+			// change target
+			setRandom();
+			mpCurrentSteering->setTarget(settingTarget());
+		
+		}
+	}
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
+		
 		steering = mpCurrentSteering->getSteering();
 	}
 	else
@@ -52,13 +66,14 @@ void KinematicUnit::update(float time)
 		{
 			setVelocity( steering->getLinear() );
 			setOrientation( steering->getAngular() );
+			
 		}
 
 		//since we are applying the steering directly we don't want any rotational velocity
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
-
+	
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
@@ -68,6 +83,7 @@ void KinematicUnit::update(float time)
 
 	//set the orientation to match the direction of travel
 	setNewOrientation();
+	
 }
 
 //private - deletes old Steering before setting
@@ -94,27 +110,42 @@ void KinematicUnit::arrive(const Vector2D &target)
 	setSteering( pArriveSteering );
 }
 
-void KinematicUnit::wander()
+void KinematicUnit::wander(const Vector2D &target)
 {
-	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this );
+	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this, target );
 	setSteering( pWanderSteering );
 }
 
 void KinematicUnit::dynamicSeek( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getUnitManager()->getUnit(0) );
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getUnitManager()->getPlayer());
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicFlee( KinematicUnit* pTarget )
 {
-	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getUnitManager()->getUnit(0), true );
+	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getUnitManager()->getPlayer(), true );
 	setSteering( pDynamicSeekSteering );
 }
 
 void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 {
-	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering( this, gpGame->getUnitManager()->getUnit(0));
+	DynamicArriveSteering* pDynamicArriveSteering = new DynamicArriveSteering( this, gpGame->getUnitManager()->getPlayer());
 	setSteering( pDynamicArriveSteering );
 }
 
+
+void KinematicUnit::setRandom()
+{
+	float random = ((float) (rand() % 4 + 1));
+	
+	mRandomChange = random;
+}
+
+Vector2D KinematicUnit::settingTarget()
+{ 
+	int xVal, yVal;
+	xVal = rand() % gpGame->getGraphicsSystem()->getWidth();
+	yVal = rand() % gpGame->getGraphicsSystem()->getHeight();
+	return Vector2D(xVal, yVal);
+}

@@ -2,15 +2,19 @@
 #include "KinematicUnit.h"
 #include "Game.h"
 
-KinematicWanderSteering::KinematicWanderSteering(KinematicUnit *pMover)
-:mpMover(pMover)
+
+KinematicWanderSteering::KinematicWanderSteering(KinematicUnit* pMover, const Vector2D& targetPosition)
+	:mpMover(pMover)
+	,mTarget(targetPosition)
 {
-	mApplyDirectly = true;
+	mApplyDirectly = false;
 }
 
 Steering* KinematicWanderSteering::getSteering()
 {
-	mLinear = mpMover->getOrientationAsVector() * mpMover->getMaxVelocity(); 
-	mAngular = mpMover->getOrientation() * ( genRandomBinomial() * MAX_WANDER_ROTATION );
+	mLinear = mTarget - mpMover->getPosition();
+	mLinear.normalize();
+	mLinear *= mpMover->getMaxVelocity();
+	mAngular = 0;
 	return this;
 }

@@ -12,7 +12,7 @@ public:
 	~UnitManager();
 
 	// these need to be changed to work with current kinematic unit
-	
+	void addUnitPlayer(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
 	void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
 	//void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, estd::string name);
 	void deleteUnit(unsigned int indexPos);
@@ -24,6 +24,8 @@ public:
 
 	void update(float dt);
 	void draw(GraphicsBuffer* pBuffer);
+
+	KinematicUnit* getPlayer() { return mpPlayer; };
 
 	//inline int getUnitsLeft() const { return mUnitsLeft; };
 
@@ -44,6 +46,7 @@ private:
 //	std::map<int, KinematicUnit*> mUnits;
 	std::vector<KinematicUnit*> mUnits;
 	bool mPause;
+	KinematicUnit* mpPlayer;
 };
 
 

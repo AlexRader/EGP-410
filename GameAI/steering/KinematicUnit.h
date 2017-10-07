@@ -23,7 +23,7 @@ const float MIN_VELOCITY_TO_TURN_SQUARED = 1.0f;
 class KinematicUnit: public Kinematic
 {
 public:
-	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
+	KinematicUnit( Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, std::string name, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f );
 	~KinematicUnit();
 
 	//getters and setters
@@ -31,6 +31,7 @@ public:
 	const Vector2D& getPosition() const { return mPosition; };
 	float getMaxVelocity() const { return mMaxVelocity; };
 	Vector2D getVelocity() const { return mVelocity; };
+	Vector2D getTarget() const { return mTarget; };
 	float getMaxAcceleration() const { return mMaxAcceleration; };
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
 
@@ -44,10 +45,13 @@ public:
 	//initiate behaviors
 	void seek( const Vector2D& target );
 	void arrive( const Vector2D& target );
-	void wander();
+	void wander(const Vector2D &target);
 	void dynamicSeek( KinematicUnit* pTarget );
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
+
+  void setRandom();
+	Vector2D settingTarget();
 
 private:
 	Sprite* mpSprite;
@@ -55,6 +59,8 @@ private:
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxVelocity;
 	float mMaxAcceleration;
+	float mRandomChange;
+	std::string mName;
 
 	void setSteering( Steering* pSteering );
 

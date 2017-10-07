@@ -18,6 +18,6 @@ void PlayerMoveToMessage::process()
 {
 	//gpGame->getPlayerUnit()->arrive(mPos);
 	
-	gpGame->getUnitManager()->getUnit(0)->arrive(mPos);
+	gpGame->getUnitManager()->getPlayer()->arrive(mPos);
 }
 

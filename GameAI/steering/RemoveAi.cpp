@@ -20,12 +20,12 @@ void RemoveAi::process()
 {
 	UnitManager* temp = gpGame->getUnitManager();
 	//gpGame->getPlayerUnit()->arrive(mPos);
-	if (temp->getSize() <= 1)
+	if (temp->getSize() <= 0)
 		gpGame->changeEscape();
 	else
 	{
 		srand(unsigned(time(NULL)));
-		int tmp = rand() % temp->getSize() + 1;
+		int tmp = rand() % temp->getSize();
 			temp->deleteUnit(tmp);
 	}
 }
