@@ -21,6 +21,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxVelocity(maxVelocity)
 ,mMaxAcceleration(maxAcceleration)
 ,mName(name)
+,mInRange(false)
 {
 	setRandom();
 }
@@ -37,7 +38,11 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 
 void KinematicUnit::update(float time)
 {
-	if (mName != PLAYER)
+	if (mName == PLAYER)
+	{
+		checkDist();
+	}
+	else if (mName != PLAYER && mInRange == false)
 	{
 		mRandomChange -= time;
 		if (mRandomChange <= 0)
@@ -48,6 +53,7 @@ void KinematicUnit::update(float time)
 		
 		}
 	}
+
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
@@ -66,7 +72,6 @@ void KinematicUnit::update(float time)
 		{
 			setVelocity( steering->getLinear() );
 			setOrientation( steering->getAngular() );
-			
 		}
 
 		//since we are applying the steering directly we don't want any rotational velocity
@@ -148,4 +153,46 @@ Vector2D KinematicUnit::settingTarget()
 	xVal = rand() % gpGame->getGraphicsSystem()->getWidth();
 	yVal = rand() % gpGame->getGraphicsSystem()->getHeight();
 	return Vector2D(xVal, yVal);
+}
+
+void KinematicUnit::inRange(bool isInRange)
+{
+	if (mInRange == true && isInRange == false)
+	{
+		this->wander(settingTarget());
+		mInRange = false;
+	}
+	else if (mInRange == false && isInRange == true)
+	{
+		if (mName == DYNAMIC_ARRIVE)
+			this->dynamicFlee(gpGame->getUnitManager()->getPlayer());
+		else
+			this->dynamicSeek(gpGame->getUnitManager()->getPlayer());
+		mInRange = true;
+	}
+}
+
+void KinematicUnit::checkDist()
+{
+	UnitManager* UM = gpGame->getUnitManager();
+	int sizeOfVector = UM->getSize();
+	Vector2D pos = UM->getPlayer()->getPosition();
+	Vector2D direction;
+	float distance;
+
+	for (int i = 0; i < sizeOfVector; i++)
+	{
+		direction = pos - UM->getUnit(i)->getPosition();
+		distance = direction.getLength();
+		if (distance <= UM->getRadius())
+		{
+			UM->getUnit(i)->inRange(true);
+		}
+		else
+		{
+			UM->getUnit(i)->inRange(false);
+		}
+	}
+
+
 }

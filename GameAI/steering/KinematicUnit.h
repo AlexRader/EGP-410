@@ -52,6 +52,8 @@ public:
 
   void setRandom();
 	Vector2D settingTarget();
+	void inRange(bool isInRange);
+	void checkDist();
 
 private:
 	Sprite* mpSprite;
@@ -61,7 +63,7 @@ private:
 	float mMaxAcceleration;
 	float mRandomChange;
 	std::string mName;
-
+	bool mInRange;
 	void setSteering( Steering* pSteering );
 
 };

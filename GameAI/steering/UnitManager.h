@@ -33,6 +33,10 @@ public:
 
 	inline int getSize() const { return mUnits.size(); };
 
+	inline float getRadius() const{ return mRadius; };
+
+	inline void setRadius(float val) { mRadius += val; };
+
 	//bool findNearestSequentialUnit();
 
 	//void pause();
@@ -47,6 +51,7 @@ private:
 	std::vector<KinematicUnit*> mUnits;
 	bool mPause;
 	KinematicUnit* mpPlayer;
+	float mRadius;
 };
 
 
