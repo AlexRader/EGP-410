@@ -139,7 +139,7 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 	setSteering( pDynamicArriveSteering );
 }
 
-
+// setting the timer to change directions
 void KinematicUnit::setRandom()
 {
 	float random = ((float) (rand() % 4 + 1));
@@ -147,6 +147,7 @@ void KinematicUnit::setRandom()
 	mRandomChange = random;
 }
 
+// setting the target after direction change
 Vector2D KinematicUnit::settingTarget()
 { 
 	int xVal, yVal;
@@ -155,6 +156,7 @@ Vector2D KinematicUnit::settingTarget()
 	return Vector2D(xVal, yVal);
 }
 
+// if player is in range do stuff
 void KinematicUnit::inRange(bool isInRange)
 {
 	if (mInRange == true && isInRange == false)
@@ -172,6 +174,7 @@ void KinematicUnit::inRange(bool isInRange)
 	}
 }
 
+//checks if player is in range
 void KinematicUnit::checkDist()
 {
 	UnitManager* UM = gpGame->getUnitManager();

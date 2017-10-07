@@ -5,6 +5,7 @@
 #include "Defines.h"
 #include "UnitManager.h"
 #include "InputManager.h"
+#include "Hud.h"
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_audio.h>
@@ -12,6 +13,7 @@
 
 class UnitManager;
 class InputManager;
+class Hud;
 
 class GraphicsSystem;
 class GraphicsBuffer;
@@ -49,6 +51,7 @@ public:
 	inline double getCurrentTime() const { return mpMasterTimer->getElapsedTime(); };
 	inline ALLEGRO_FONT* getFont() const { return mpFont; };
 
+	inline Hud* getHud() const { return mpHud; };
 	/*
 	inline KinematicUnit* getPlayerUnit() { return mpUnit; };//should be someplace else
 	inline KinematicUnit* getAIUnit() { return mpAIUnit; };//should be someplace else
@@ -61,6 +64,8 @@ public:
 
 	void createUnit(const std::string name, Vector2D vec);
 
+	inline void changeDebug() { mDebug = !mDebug; };
+
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
@@ -70,8 +75,8 @@ private:
 	Timer* mpMasterTimer;
 	UnitManager* mpUnitManager;
 	InputManager* mpInputManager;
-	bool mShouldExit;
-
+	bool mShouldExit, mDebug;
+	Hud* mpHud;
 	//should be somewhere else
 	ALLEGRO_FONT* mpFont;
 	ALLEGRO_SAMPLE* mpSample;
@@ -81,7 +86,7 @@ private:
 
 	
 	//KinematicUnit* mpUnit;
-	KinematicUnit* mpAIUnit;
+	//KinematicUnit* mpAIUnit;
 	//KinematicUnit* mpAIUnit2;
 };
 

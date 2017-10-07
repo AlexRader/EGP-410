@@ -40,6 +40,7 @@ Game::Game()
 	, mBackgroundBufferID(INVALID_ID)
 	, mpUnitManager(NULL)
 	, mpInputManager(NULL)
+	, mpHud(NULL)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -52,7 +53,7 @@ Game::~Game()
 bool Game::init()
 {
 	mShouldExit = false;
-
+	mDebug = false;
 	//create Timers
 	mpLoopTimer = new Timer;
 	mpMasterTimer = new Timer;
@@ -141,6 +142,7 @@ bool Game::init()
 		return false;
 	}
 
+	mpHud = new Hud();
 	mpInputManager = new InputManager();
 	mpInputManager->init();
 	mpUnitManager = new UnitManager();
@@ -177,11 +179,6 @@ bool Game::init()
 	Vector2D vel( 0.0f, 0.0f );
 
 	mpUnitManager->addUnitPlayer(pArrowSprite, pos, 1, vel, 0.0f, "Player", 200.0f, 10.0f);
-
-	
-	Vector2D pos2( 1000.0f, 500.0f );
-	Vector2D vel2( 0.0f, 0.0f );
-
 	return true;
 }
 
@@ -212,6 +209,8 @@ void Game::cleanup()
 	mpMessageManager = NULL;
 
 
+	delete mpHud;
+	mpHud = NULL;
 
 	al_destroy_sample(mpSample);
 	mpSample = NULL;
@@ -243,6 +242,12 @@ void Game::processLoop()
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite( BACKGROUND_SPRITE_ID );
 	pBackgroundSprite->draw( *(mpGraphicsSystem->getBackBuffer()), 0, 0 );
 
+	if (mDebug == true)
+	{
+		//al_draw_text(getFont(), al_map_rgb(255, 255, 255), 50, 50, ALLEGRO_ALIGN_CENTRE, "+: Increases value");
+		mpHud->draw();
+	}
+
 	//draw units
 	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
 	
@@ -251,7 +256,6 @@ void Game::processLoop()
 	mpInputManager->update();
 
 	mpGraphicsSystem->swap();
-
 }
 
 bool Game::endLoop()

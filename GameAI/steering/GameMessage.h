@@ -8,7 +8,8 @@ enum MessageType
 	PLAYER_MOVETO_MESSAGE = 0,
 	ARRIVE_SPAWN = 1,
 	SEEK_SPAWN = 2, 
-	REMOVE_AI
+	REMOVE_AI = 3,
+	DISPLAY_DEBUG = 4
 	
 };
 
