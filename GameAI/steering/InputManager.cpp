@@ -10,6 +10,11 @@
 #include "SpawnDynamicSeek.h"
 #include "RemoveAi.h"
 #include "DisplayDebug.h"
+#include "RadiusChange.h"
+#include "AngularControl.h"
+#include "EnemyVelocityControl.h"
+#include "EscapeMessage.h"
+#include "PlusMinusMessage.h"
 
 InputManager::InputManager()
 {
@@ -45,6 +50,7 @@ void InputManager::init()
 	}
 	
 	mInitialized = true;
+	mSwitched = 0.0f;
 }
 
 void InputManager::cleanUp()
@@ -92,7 +98,8 @@ void InputManager::update()
 		//if escape key was down then exit the loop
 		if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
 		{
-			gpGame->changeEscape();
+			GameMessage* pMessage = new EscapeMessage();
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 		
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_F) && !al_key_down(&mPreviousState, ALLEGRO_KEY_F))
@@ -117,7 +124,32 @@ void InputManager::update()
 			GameMessage* pMessage = new DisplayDebug();
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-		
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_EQUALS) && !al_key_down(&mPreviousState, ALLEGRO_KEY_EQUALS))
+		{
+			GameMessage* pMessage = new PlusMinusMessage(10.0f);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_MINUS) && !al_key_down(&mPreviousState, ALLEGRO_KEY_MINUS))
+		{
+			GameMessage* pMessage = new PlusMinusMessage(-10.0f);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_R) && !al_key_down(&mPreviousState, ALLEGRO_KEY_R))
+		{
+			GameMessage* pMessage = new RadiusChange(mSwitched);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_V) && !al_key_down(&mPreviousState, ALLEGRO_KEY_V))
+		{
+			GameMessage* pMessage = new EnemyVelocityControl(mSwitched);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
+		{
+			GameMessage* pMessage = new AngularControl(mSwitched);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+
 		mPreviousState = mCurrentState;
 	}
 }

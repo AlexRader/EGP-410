@@ -35,8 +35,11 @@ public:
 
 	inline float getRadius() const{ return mRadius; };
 
-	inline void setRadius(float val) { mRadius += val; };
+	inline void setRadius(float val) { if (mRadius + val > 0 ) mRadius +=val ; };
 
+	void setEnemyVelocity(float val);
+
+	void setAngularVelocity(float val);
 	//bool findNearestSequentialUnit();
 
 	//void pause();

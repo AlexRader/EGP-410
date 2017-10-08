@@ -44,6 +44,11 @@ public:
 	void setRotationalVelocity( float rotVel ) { mRotationVel = rotVel; };
 	float getRotationVel() const { return mRotationVel; };
 
+
+	// adding a second rotational velocity setting just in case you want to increment
+	void setRotationalVelocitySecond(float rotVel) {if( mRotationVel + rotVel > 0) mRotationVel += rotVel; };
+
+
 protected:
 	Vector2D mPosition;//where am I?
 	Vector2D mVelocity;//how fast am I moving?

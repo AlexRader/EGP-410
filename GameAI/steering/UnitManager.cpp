@@ -94,3 +94,16 @@ void UnitManager::draw(GraphicsBuffer* pBuffer)
 	for each (KinematicUnit* unit in mUnits)
 		unit->draw(pBuffer);
 }
+
+void UnitManager::setEnemyVelocity(float val)
+{
+	for each (KinematicUnit* unit in mUnits)
+		unit->setVelocityMax(val);
+}
+
+void UnitManager::setAngularVelocity(float val)
+{
+	mpPlayer->setRotationalVelocitySecond(val);
+	for each (KinematicUnit* unit in mUnits)
+		unit->setRotationalVelocitySecond(val);
+}

@@ -3,8 +3,6 @@
 #include "GameMessage.h"
 
 
-
-
 class DisplayDebug : public GameMessage
 {
 public:

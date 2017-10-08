@@ -196,6 +196,4 @@ void KinematicUnit::checkDist()
 			UM->getUnit(i)->inRange(false);
 		}
 	}
-
-
 }

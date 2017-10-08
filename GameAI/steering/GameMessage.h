@@ -9,8 +9,12 @@ enum MessageType
 	ARRIVE_SPAWN = 1,
 	SEEK_SPAWN = 2, 
 	REMOVE_AI = 3,
-	DISPLAY_DEBUG = 4
-	
+	DISPLAY_DEBUG = 4,
+	V_CONTROL = 5,
+	R_CONTROL = 6,
+	A_CONTROL = 7,
+	ESCAPE_MESSAGE = 8,
+	PLUS_MINUS = 9
 };
 
 class GameMessage: public Trackable

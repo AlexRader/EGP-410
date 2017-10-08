@@ -34,6 +34,7 @@ public:
 	Vector2D getTarget() const { return mTarget; };
 	float getMaxAcceleration() const { return mMaxAcceleration; };
 	void setVelocity( const Vector2D& velocity ){ mVelocity = velocity; };
+	void setVelocityMax(const float var) { if (mMaxVelocity + var > 0) mMaxVelocity += var; };
 
 	virtual void setNewOrientation();//face the direction you are moving
 
