@@ -46,12 +46,15 @@ public:
 	//initiate behaviors
 	void seek( const Vector2D& target );
 	void arrive( const Vector2D& target );
-	void wander(const Vector2D &target);
+	void wander();
 	void dynamicSeek( KinematicUnit* pTarget );
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
 
-  void setRandom();
+	// setting the timer to change directions
+	void setRandom(const float var) { mRandomChange = var; };
+	void setRandomNumber();
+
 	Vector2D settingTarget();
 	void inRange(bool isInRange);
 	void checkDist();

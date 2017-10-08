@@ -26,8 +26,7 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 {
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 
-	temp->wander(getPlayer()->settingTarget());
-	
+	temp->wander();
 
 	mUnits.push_back(temp);
 }
@@ -57,39 +56,15 @@ void UnitManager::clear()
 
 void UnitManager::update(float dt)
 {
-	/*
-	std::map<int, KinematicUnit*>::iterator iter;
-	iter = mUnits.begin();
 
-	if (mPause != true)
-	{
-		while (iter != mUnits.end())
-		{
-			iter->second->update(dt);
-			iter++;
-		}
-	}
-*/
 	mpPlayer->update(dt);
 	for each (KinematicUnit* unit in mUnits)
 		unit->update(dt);
-	//checkOut();
-
 }
 
 
 void UnitManager::draw(GraphicsBuffer* pBuffer)
 {
-	/*
-	std::map<int, KinematicUnit*>::iterator iter;
-	iter = mUnits.begin();
-
-	while (iter != mUnits.end())
-	{
-		iter->second->draw(pBuffer);
-		iter++;
-	}
-*/
 	mpPlayer->draw(pBuffer);
 	for each (KinematicUnit* unit in mUnits)
 		unit->draw(pBuffer);

@@ -22,8 +22,9 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mMaxAcceleration(maxAcceleration)
 ,mName(name)
 ,mInRange(false)
+,mRandomChange(0.0f)
 {
-	setRandom();
+	
 }
 
 KinematicUnit::~KinematicUnit()
@@ -38,27 +39,31 @@ void KinematicUnit::draw( GraphicsBuffer* pBuffer )
 
 void KinematicUnit::update(float time)
 {
-	if (mName == PLAYER)
-	{
-		checkDist();
-	}
-	else if (mName != PLAYER && mInRange == false)
-	{
-		mRandomChange -= time;
-		if (mRandomChange <= 0)
-		{
-			// change target
-			setRandom();
-			mpCurrentSteering->setTarget(settingTarget());
-		
-		}
-	}
-
+	// this got updated
 	Steering* steering;
 	if( mpCurrentSteering != NULL )
 	{
-		
-		steering = mpCurrentSteering->getSteering();
+		if (mName != PLAYER) // this checks for enemy ai
+		{
+			checkDist();
+			mRandomChange -= time;
+			// this entire function addition is to get wander to work
+			// everytime you getSteering() for wander it changes the direction of the ai
+			// basically it makes the ai freak out
+			if (mRandomChange <= 0 && mInRange == false)
+			{
+				setRandomNumber();
+				steering = mpCurrentSteering->getSteering();
+			}
+			else if (mInRange == true)
+				steering = mpCurrentSteering->getSteering();
+			else
+			{
+				steering = mpCurrentSteering;
+			}
+		}
+		else
+			steering = mpCurrentSteering->getSteering();
 	}
 	else
 	{
@@ -115,9 +120,9 @@ void KinematicUnit::arrive(const Vector2D &target)
 	setSteering( pArriveSteering );
 }
 
-void KinematicUnit::wander(const Vector2D &target)
+void KinematicUnit::wander()
 {
-	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this, target );
+	KinematicWanderSteering* pWanderSteering = new KinematicWanderSteering( this );
 	setSteering( pWanderSteering );
 }
 
@@ -139,13 +144,12 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 	setSteering( pDynamicArriveSteering );
 }
 
-// setting the timer to change directions
-void KinematicUnit::setRandom()
+
+void KinematicUnit::setRandomNumber()
 {
-	float random = ((float) (rand() % 4 + 1));
-	
-	mRandomChange = random;
+	setRandom(((float)(rand() % 4 + 1)));
 }
+
 
 // setting the target after direction change
 Vector2D KinematicUnit::settingTarget()
@@ -161,7 +165,8 @@ void KinematicUnit::inRange(bool isInRange)
 {
 	if (mInRange == true && isInRange == false)
 	{
-		this->wander(settingTarget());
+		this->wander();
+		mpCurrentSteering->getSteering();
 		mInRange = false;
 	}
 	else if (mInRange == false && isInRange == true)
@@ -177,23 +182,8 @@ void KinematicUnit::inRange(bool isInRange)
 //checks if player is in range
 void KinematicUnit::checkDist()
 {
-	UnitManager* UM = gpGame->getUnitManager();
-	int sizeOfVector = UM->getSize();
-	Vector2D pos = UM->getPlayer()->getPosition();
-	Vector2D direction;
-	float distance;
-
-	for (int i = 0; i < sizeOfVector; i++)
-	{
-		direction = pos - UM->getUnit(i)->getPosition();
-		distance = direction.getLength();
-		if (distance <= UM->getRadius())
-		{
-			UM->getUnit(i)->inRange(true);
-		}
-		else
-		{
-			UM->getUnit(i)->inRange(false);
-		}
-	}
+	if ((gpGame->getUnitManager()->getPlayer()->getPosition() - getPosition()).getLength() <= gpGame->getUnitManager()->getRadius())
+		inRange(true);
+	else
+		inRange(false);
 }

@@ -6,17 +6,14 @@ class KinematicUnit;
 
 const float MAX_WANDER_ROTATION = 1.0f;
 
-class KinematicWanderSteering:public Steering
+class KinematicWanderSteering :public Steering
 {
 public:
-	KinematicWanderSteering(KinematicUnit* pMover, const Vector2D& targetPosition);
-	~KinematicWanderSteering(){};
-
-	virtual void setTarget(const Vector2D& targetPosition) { mTarget = targetPosition; };
+	KinematicWanderSteering(KinematicUnit* pMover);
+	~KinematicWanderSteering() {};
 
 	virtual Steering* getSteering();
 
 private:
-	Vector2D mTarget;
 	KinematicUnit* mpMover;
 };
