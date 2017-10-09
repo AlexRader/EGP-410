@@ -6,6 +6,7 @@
 DynamicWanderSteering::DynamicWanderSteering(KinematicUnit *pMover)
 	:mpMover(pMover)
 {
+	setWeight(0.2f);
 	mApplyDirectly = false;
 }
 

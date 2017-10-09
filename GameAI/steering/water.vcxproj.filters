@@ -109,6 +109,9 @@
     <ClCompile Include="DynamicWanderSteering.cpp">
       <Filter>Source Files\Steering</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionAvoidenceSteering.cpp">
+      <Filter>Source Files\Steering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -217,6 +220,9 @@
       <Filter>Header Files\Messaging</Filter>
     </ClInclude>
     <ClInclude Include="DynamicWanderSteering.h">
+      <Filter>Header Files\Steering</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionAvoidenceSteering.h">
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
   </ItemGroup>

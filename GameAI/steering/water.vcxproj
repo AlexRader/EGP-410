@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="AngularControl.h" />
     <ClInclude Include="ClickEvent.h" />
+    <ClInclude Include="CollisionAvoidenceSteering.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DisplayDebug.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <ClCompile Include="AngularControl.cpp" />
     <ClCompile Include="ClickEvent.cpp" />
+    <ClCompile Include="CollisionAvoidenceSteering.cpp" />
     <ClCompile Include="DisplayDebug.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />

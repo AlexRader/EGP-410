@@ -35,10 +35,13 @@ public:
 	virtual Steering* getSteering() { return this; };//overridden by sub-classes
 	virtual Vector2D getTarget() { return mLinear; }; // over ridden by a subclass to return the desired target
 	virtual void setTarget(const Vector2D& targetPosition) {};
+	//these are together because they effect weight
+	float getWeight() { return mWeight; };
+	void setWeight(float val) { mWeight = val; };
 
 protected:
 	Vector2D mLinear;//linear velocity
 	float mAngular;//angular velocity
 	bool mApplyDirectly;
-
+	float mWeight = 0;
 };

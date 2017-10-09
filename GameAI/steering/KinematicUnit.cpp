@@ -10,6 +10,8 @@
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
 #include "DynamicWanderSteering.h"
+#include "CollisionAvoidenceSteering.h"
+
 #include <stdio.h>
 #include <math.h>
 //#include "GameMessageManager.h"
@@ -34,6 +36,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 KinematicUnit::~KinematicUnit()
 {
 	delete mpCurrentSteering;
+	clear();
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -45,13 +48,35 @@ void KinematicUnit::update(float time)
 {
 	// this got updated
 	Steering* steering;
-	if( mpCurrentSteering != NULL )
+	Steering* holdSteering;
+	Vector2D MaxLinear = Vector2D(0.0f,0.0f);
+	float MaxAngular = 0.0f;
+
+	if( getSize() > 0 )
 	{
 		if (mName != PLAYER) // this checks for enemy ai
 		{
+			steering = mpCurrentSteering;
+			for (int i = 0; i < getSize(); i++)
+			{
+				holdSteering = getUnitSteering(i)->getSteering();
+				//currentLinear = holdSteering->getLinear();
+				if ((holdSteering->getLinear().getLength() * getUnitSteering(i)->getWeight()) > MaxLinear.getLength())
+					MaxLinear = holdSteering->getLinear();
+				if ((holdSteering->getAngular() * getUnitSteering(i)->getWeight()) > MaxAngular)
+				{
+					MaxAngular = holdSteering->getAngular();
+				}
+			}
+			steering->setLinear(MaxLinear);
+			steering->setAngular(MaxAngular);
 			//steering = mpCurrentSteering->getSteering();
 			
+			/*
 			checkDist();
+			*/
+			
+
 			/*mRandomChange -= time;
 			// this entire function addition is to get wander to work
 			// everytime you getSteering() for wander it changes the direction of the ai
@@ -70,8 +95,8 @@ void KinematicUnit::update(float time)
 				
 			}*/
 		}
-		//else
-		steering = mpCurrentSteering->getSteering();
+		else
+			steering = mpCurrentSteering->getSteering();
 	}
 	else
 	{
@@ -106,10 +131,12 @@ void KinematicUnit::update(float time)
 }
 
 //private - deletes old Steering before setting
+//modified so it works with weighted behaviors;
 void KinematicUnit::setSteering( Steering* pSteering )
 {
 	delete mpCurrentSteering;
 	mpCurrentSteering = pSteering;
+	addSteeringBehavior(pSteering);
 }
 
 void KinematicUnit::setNewOrientation()
@@ -159,6 +186,11 @@ void KinematicUnit::dynamicArrive( KinematicUnit* pTarget )
 	setSteering( pDynamicArriveSteering );
 }
 
+void KinematicUnit::collisionAvoidence()
+{
+	CollisionAvoidenceSteering* pCollisionAvoidence = new CollisionAvoidenceSteering(this);
+	setSteering(pCollisionAvoidence);
+}
 
 void KinematicUnit::setRandomNumber()
 {
@@ -225,3 +257,36 @@ void KinematicUnit::wallCollision()
 		}
 	}
 }
+
+// the following is for weighted behavior
+void KinematicUnit::addSteeringBehavior(Steering* theSteering)
+{
+	mSteeringBehavior.push_back(theSteering);
+}
+
+Steering* KinematicUnit::getUnitSteering(int indexPos)
+{
+	return mSteeringBehavior.at(indexPos);
+}
+
+void KinematicUnit::clear()
+{
+	/*
+	for each (Steering* behavior in mSteeringBehavior)
+		delete behavior;
+	mSteeringBehavior.clear();
+	
+	for (int i = getSize() - 1; i > 0; --i)
+		deleteUnit(i);
+	mSteeringBehavior.clear();*/
+}
+
+void KinematicUnit::deleteUnit(unsigned int indexPos)
+{
+	if (indexPos < 0 || indexPos >= mSteeringBehavior.size())
+		return;
+	delete mSteeringBehavior.at(indexPos);
+	mSteeringBehavior.erase(mSteeringBehavior.begin() + indexPos);
+}
+
+

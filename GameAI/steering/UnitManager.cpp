@@ -25,8 +25,8 @@ void UnitManager::addUnitPlayer(Sprite* pSprite, const Vector2D& position, float
 void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
 {
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
-
 	temp->dynamicWander();
+	//temp->collisionAvoidence();
 
 	mUnits.push_back(temp);
 }

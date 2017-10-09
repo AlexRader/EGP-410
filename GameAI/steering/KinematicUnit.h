@@ -2,6 +2,7 @@
 
 #include "Kinematic.h"
 #include "Steering.h"
+#include <vector>
 //#include "PlayerMoveToMessage.h"
 
 /*KinematicUnit - a unit that is derived from the Kinematic class.  Adds behaviors and max speeds and a current Steering.
@@ -59,17 +60,26 @@ public:
 	void dynamicSeek( KinematicUnit* pTarget );
 	void dynamicFlee( KinematicUnit* pTarget );
 	void dynamicArrive( KinematicUnit* pTarget );
+	void collisionAvoidence();
 
 
+	inline int getSize() const { return mSteeringBehavior.size(); };
 
+	void addSteeringBehavior(Steering* theSteering);
+	Steering* getUnitSteering(int indexPos);
+	void clear();
+	void deleteUnit(unsigned int indexPos);
+	//KinematicUnit* getUnit(int indexPos);
 	void wallCollision();
 
 	void inRange(bool isInRange);
 	void checkDist();
 
 private:
+	std::vector<Steering*> mSteeringBehavior;
 	Sprite* mpSprite;
 	Steering* mpCurrentSteering;
+	
 	Vector2D mTarget;//used only for Kinematic seek and arrive
 	float mMaxVelocity;
 	float mMaxAcceleration;

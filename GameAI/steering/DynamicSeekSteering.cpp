@@ -6,6 +6,7 @@ DynamicSeekSteering::DynamicSeekSteering(KinematicUnit *pMover, KinematicUnit* p
 ,mpTarget(pTarget)
 ,mShouldFlee(shouldFlee)
 {
+	setWeight(0.5f);
 	mApplyDirectly = false;
 }
 
