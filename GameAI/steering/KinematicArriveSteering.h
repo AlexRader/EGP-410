@@ -11,7 +11,8 @@ public:
 	~KinematicArriveSteering(){};
 
 	void setTarget( const Vector2D& targetPosition ){ mTarget = targetPosition; };
-
+	//added this so I could bounce with player
+	Vector2D getTarget() const { return mTarget; };
 	virtual Steering* getSteering();
 
 private:

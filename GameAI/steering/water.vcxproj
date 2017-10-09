@@ -17,6 +17,7 @@
     <ClInclude Include="DisplayDebug.h" />
     <ClInclude Include="DynamicArriveSteering.h" />
     <ClInclude Include="DynamicSeekSteering.h" />
+    <ClInclude Include="DynamicWanderSteering.h" />
     <ClInclude Include="EnemyVelocityControl.h" />
     <ClInclude Include="EscapeMessage.h" />
     <ClInclude Include="Event.h" />
@@ -53,6 +54,7 @@
     <ClCompile Include="DisplayDebug.cpp" />
     <ClCompile Include="DynamicArriveSteering.cpp" />
     <ClCompile Include="DynamicSeekSteering.cpp" />
+    <ClCompile Include="DynamicWanderSteering.cpp" />
     <ClCompile Include="EnemyVelocityControl.cpp" />
     <ClCompile Include="EscapeMessage.cpp" />
     <ClCompile Include="Event.cpp" />

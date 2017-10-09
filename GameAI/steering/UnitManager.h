@@ -14,10 +14,13 @@ public:
 	// these need to be changed to work with current kinematic unit
 	void addUnitPlayer(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
 	void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
+	void addUnitWall(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity = 1.0f, float maxAcceleration = 1.0f);
 	//void addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, float maxVelocity = 1.0f, float maxAcceleration = 1.0f, estd::string name);
 	void deleteUnit(unsigned int indexPos);
 /*	void deleteUnit(KinematicUnit* unit);*/
 	KinematicUnit* getUnit(int indexPos);
+
+	KinematicUnit* getUnitWall(int indexPos);
 
 	//KinematicUnitUnit * checkHit(int x, int y);
 	void clear();
@@ -32,6 +35,8 @@ public:
 	//inline int getNumOfUnits() const { return mNumOfUnits; };
 
 	inline int getSize() const { return mUnits.size(); };
+
+	inline int getSizeWall() const { return mUnitsWall.size(); };
 
 	inline float getRadius() const{ return mRadius; };
 
@@ -52,6 +57,7 @@ public:
 private:
 //	std::map<int, KinematicUnit*> mUnits;
 	std::vector<KinematicUnit*> mUnits;
+	std::vector<KinematicUnit*> mUnitsWall;
 	bool mPause;
 	KinematicUnit* mpPlayer;
 	float mRadius;

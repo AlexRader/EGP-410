@@ -9,6 +9,10 @@
 #include "KinematicWanderSteering.h"
 #include "DynamicSeekSteering.h"
 #include "DynamicArriveSteering.h"
+#include "DynamicWanderSteering.h"
+#include <stdio.h>
+#include <math.h>
+//#include "GameMessageManager.h"
 
 using namespace std;
 
@@ -45,8 +49,10 @@ void KinematicUnit::update(float time)
 	{
 		if (mName != PLAYER) // this checks for enemy ai
 		{
+			//steering = mpCurrentSteering->getSteering();
+			
 			checkDist();
-			mRandomChange -= time;
+			/*mRandomChange -= time;
 			// this entire function addition is to get wander to work
 			// everytime you getSteering() for wander it changes the direction of the ai
 			// basically it makes the ai freak out
@@ -60,17 +66,19 @@ void KinematicUnit::update(float time)
 			else
 			{
 				steering = mpCurrentSteering;
-			}
+				//steering = trunc(steering);
+				
+			}*/
 		}
-		else
-			steering = mpCurrentSteering->getSteering();
+		//else
+		steering = mpCurrentSteering->getSteering();
 	}
 	else
 	{
 		steering = &gNullSteering;
 	}
-
-	if( steering->shouldApplyDirectly() )
+	
+	if( steering->shouldApplyDirectly() && mName == PLAYER)
 	{
 		//not stopped
 		if( getVelocity().getLengthSquared() > MIN_VELOCITY_TO_TURN_SQUARED )
@@ -84,6 +92,7 @@ void KinematicUnit::update(float time)
 		steering->setAngular( 0.0f );
 	}
 	
+	wallCollision();
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
@@ -126,6 +135,12 @@ void KinematicUnit::wander()
 	setSteering( pWanderSteering );
 }
 
+void KinematicUnit::dynamicWander()
+{
+	DynamicWanderSteering* pDynamicWanderSteering = new DynamicWanderSteering(this);
+	setSteering(pDynamicWanderSteering);
+}
+
 void KinematicUnit::dynamicSeek( KinematicUnit* pTarget )
 {
 	DynamicSeekSteering* pDynamicSeekSteering = new DynamicSeekSteering( this, gpGame->getUnitManager()->getPlayer());
@@ -165,7 +180,7 @@ void KinematicUnit::inRange(bool isInRange)
 {
 	if (mInRange == true && isInRange == false)
 	{
-		this->wander();
+		this->dynamicWander();
 		mpCurrentSteering->getSteering();
 		mInRange = false;
 	}
@@ -186,4 +201,27 @@ void KinematicUnit::checkDist()
 		inRange(true);
 	else
 		inRange(false);
+}
+
+
+void KinematicUnit::wallCollision()
+{
+	Vector2D var;
+	Vector2D pos;
+	for (int i = 0; i < gpGame->getUnitManager()->getSizeWall(); i++)
+	{
+		var = gpGame->getUnitManager()->getUnitWall(i)->getPosition();
+		if (gpGame->getUnitManager()->getUnitWall(i)->getName() == WALL_HOR)
+		{
+			if (this->getPosition().getY() >= var.getY() && this->getPosition().getY() <= var.getY() + (gpGame->getUnitManager()->getUnitWall(i)->getSprite()->getHeight()))
+			{
+				this->setVelocity(Vector2D(this->getVelocity().getX(), (this->getVelocity().getY() * -1)));
+			}
+		}
+		else
+		{
+			if (this->getPosition().getX() >= var.getX() && this->getPosition().getX() <= var.getX() + gpGame->getUnitManager()->getUnitWall(i)->getSprite()->getWidth())
+				this->setVelocity(Vector2D((this->getVelocity().getX() * -1), this->getVelocity().getY()));
+		}
+	}
 }

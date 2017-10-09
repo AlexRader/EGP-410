@@ -8,7 +8,7 @@
 UnitManager::UnitManager()
 {
 	mPause = false;
-	mRadius = 200.0f;
+	mRadius = 20.0f;
 	//gpEventSystem->addListener(CLICK_EVENT, this);
 }
 
@@ -26,9 +26,15 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 {
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 
-	temp->wander();
+	temp->dynamicWander();
 
 	mUnits.push_back(temp);
+}
+
+void UnitManager::addUnitWall(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
+{
+	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
+	mUnitsWall.push_back(temp);
 }
 
 void UnitManager::deleteUnit(unsigned int indexPos)
@@ -44,6 +50,12 @@ KinematicUnit* UnitManager::getUnit(int indexPos)
 		return mUnits.at(indexPos);
 }
 
+KinematicUnit* UnitManager::getUnitWall(int indexPos)
+{
+	return mUnitsWall.at(indexPos);
+}
+
+
 void UnitManager::clear()
 {
 
@@ -51,12 +63,17 @@ void UnitManager::clear()
 		delete unit;
 	
 	mUnits.clear();
+
+	for each (KinematicUnit* unit in mUnitsWall)
+		delete unit;
+
+	mUnitsWall.clear();
+
 	delete mpPlayer;
 }
 
 void UnitManager::update(float dt)
 {
-
 	mpPlayer->update(dt);
 	for each (KinematicUnit* unit in mUnits)
 		unit->update(dt);
@@ -65,6 +82,8 @@ void UnitManager::update(float dt)
 
 void UnitManager::draw(GraphicsBuffer* pBuffer)
 {
+	for each (KinematicUnit* unit in mUnitsWall)
+		unit->draw(pBuffer);
 	mpPlayer->draw(pBuffer);
 	for each (KinematicUnit* unit in mUnits)
 		unit->draw(pBuffer);

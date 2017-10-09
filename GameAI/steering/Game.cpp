@@ -152,6 +152,9 @@ bool Game::init()
 	mBackgroundBufferID = mpGraphicsBufferManager->loadBuffer("wallpaper.bmp");
 	mPlayerIconBufferID = mpGraphicsBufferManager->loadBuffer("arrow.bmp");
 	mEnemyIconBufferID = mpGraphicsBufferManager->loadBuffer("enemy-arrow.bmp");
+	mVerticalWallBufferID = mpGraphicsBufferManager->loadBuffer("vertical.bmp");
+	mHorizontalWallBufferID = mpGraphicsBufferManager->loadBuffer("horizontal.bmp");
+	
 	
 	//setup sprites
 	GraphicsBuffer* pBackGroundBuffer = mpGraphicsBufferManager->getBuffer( mBackgroundBufferID );
@@ -173,12 +176,33 @@ bool Game::init()
 		pEnemyArrow = mpSpriteManager->createAndManageSprite( AI_ICON_SPRITE_ID, pAIBuffer, 0, 0, pAIBuffer->getWidth(), pAIBuffer->getHeight() );
 	}
 
+	GraphicsBuffer* pVerticalBuffer = mpGraphicsBufferManager->getBuffer( mVerticalWallBufferID );
+	Sprite* pVerticalSprite = NULL;
+	if (pVerticalBuffer != NULL)
+	{
+		pVerticalSprite = mpSpriteManager->createAndManageSprite(mVerticalWallBufferID, pVerticalBuffer, 0, 0, pVerticalBuffer->getWidth(), pVerticalBuffer->getHeight());
+	}
+
+	GraphicsBuffer* pHorizontalBuffer = mpGraphicsBufferManager->getBuffer( mHorizontalWallBufferID );
+	Sprite* pHorizontalSprite = NULL;
+	if (pHorizontalBuffer != NULL)
+	{
+		pHorizontalSprite = mpSpriteManager->createAndManageSprite(mHorizontalWallBufferID, pHorizontalBuffer, 0, 0, pHorizontalBuffer->getWidth(), pHorizontalBuffer->getHeight());
+	}
+
 	srand(static_cast <unsigned> (time(0)));
 	//setup units
 	Vector2D pos( 0.0f, 0.0f );
+	Vector2D playerPos(500.0f, 500.0f);
 	Vector2D vel( 0.0f, 0.0f );
 
-	mpUnitManager->addUnitPlayer(pArrowSprite, pos, 1, vel, 0.0f, "Player", 200.0f, 10.0f);
+	mpUnitManager->addUnitPlayer(pArrowSprite, playerPos, 1, vel, 0.0f, "Player", 200.0f, 10.0f);
+
+	mpUnitManager->addUnitWall(pHorizontalSprite, Vector2D(0.0f, mpGraphicsSystem->getHeight() - pHorizontalSprite->getHeight()), 0, vel, 0.0, WALL_HOR, 0.0f, 0.0f);
+	mpUnitManager->addUnitWall(pVerticalSprite, Vector2D(mpGraphicsSystem->getWidth() - pVerticalSprite->getWidth(), 0.0f), 0, vel, 0.0, WALL_VERT, 0.0f, 0.0f);
+	mpUnitManager->addUnitWall(pVerticalSprite, pos, 0, vel, 0.0, WALL_VERT, 0.0f, 0.0f);
+	mpUnitManager->addUnitWall(pHorizontalSprite, pos, 0, vel, 0.0, WALL_HOR, 0.0f, 0.0f);
+	
 	return true;
 }
 
@@ -242,15 +266,15 @@ void Game::processLoop()
 	Sprite* pBackgroundSprite = mpSpriteManager->getSprite( BACKGROUND_SPRITE_ID );
 	pBackgroundSprite->draw( *(mpGraphicsSystem->getBackBuffer()), 0, 0 );
 
+	//draw units
+	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
+	
 	if (mDebug == true)
 	{
 		//al_draw_text(getFont(), al_map_rgb(255, 255, 255), 50, 50, ALLEGRO_ALIGN_CENTRE, "+: Increases value");
 		mpHud->draw();
 	}
 
-	//draw units
-	mpUnitManager->draw(GRAPHICS_SYSTEM->getBackBuffer());
-	
 	mpMessageManager->processMessagesForThisframe();
 
 	mpInputManager->update();
@@ -278,5 +302,5 @@ float genRandomFloat()
 
 void Game::createUnit(const std::string name, Vector2D vec)
 {
-	mpUnitManager->addUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), vec, 1, Vector2D(0.0f, 0.0f), 0.0f, name, 180.0f, 100.0f);
+	mpUnitManager->addUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), vec, 1, Vector2D(genRandomFloat(), genRandomFloat()), 0.0f, name, 180.0f, 100.0f);
 }
