@@ -35,8 +35,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 
 KinematicUnit::~KinematicUnit()
 {
-	delete mpCurrentSteering;
-	clear();
+	clean();
 }
 
 void KinematicUnit::draw( GraphicsBuffer* pBuffer )
@@ -52,24 +51,30 @@ void KinematicUnit::update(float time)
 	Vector2D MaxLinear = Vector2D(0.0f,0.0f);
 	float MaxAngular = 0.0f;
 
-	if( getSize() > 0 )
+	if( mSteeringBehavior.size() > 0 )
 	{
 		if (mName != PLAYER) // this checks for enemy ai
 		{
-			steering = mpCurrentSteering;
-			for (int i = 0; i < getSize(); i++)
+			for (unsigned int i = 0; i < mSteeringBehavior.size(); i++)
 			{
+				//holdSteering = getUnitSteering(i);// ->getSteering();
 				holdSteering = getUnitSteering(i)->getSteering();
+				steering = holdSteering;
+				//holdSteering = holdSteering->getSteering();
 				//currentLinear = holdSteering->getLinear();
-				if ((holdSteering->getLinear().getLength() * getUnitSteering(i)->getWeight()) > MaxLinear.getLength())
-					MaxLinear = holdSteering->getLinear();
-				if ((holdSteering->getAngular() * getUnitSteering(i)->getWeight()) > MaxAngular)
+				if (holdSteering != NULL)
 				{
-					MaxAngular = holdSteering->getAngular();
+					if ((holdSteering->getLinear().getLength() * getUnitSteering(i)->getWeight()) > MaxLinear.getLength())
+						MaxLinear = holdSteering->getLinear();
+					if ((holdSteering->getAngular() * getUnitSteering(i)->getWeight()) > MaxAngular)
+					{
+						MaxAngular = holdSteering->getAngular();
+					}
 				}
 			}
 			steering->setLinear(MaxLinear);
 			steering->setAngular(MaxAngular);
+			wallCollision();
 			//steering = mpCurrentSteering->getSteering();
 			
 			/*
@@ -116,8 +121,7 @@ void KinematicUnit::update(float time)
 		setRotationalVelocity( 0.0f );
 		steering->setAngular( 0.0f );
 	}
-	
-	wallCollision();
+
 	//move the unit using current velocities
 	Kinematic::update( time );
 	//calculate new velocities
@@ -134,8 +138,8 @@ void KinematicUnit::update(float time)
 //modified so it works with weighted behaviors;
 void KinematicUnit::setSteering( Steering* pSteering )
 {
-	delete mpCurrentSteering;
-	mpCurrentSteering = pSteering;
+	//delete mpCurrentSteering;
+	//mpCurrentSteering = pSteering;
 	addSteeringBehavior(pSteering);
 }
 
@@ -153,6 +157,7 @@ void KinematicUnit::seek(const Vector2D &target)
 void KinematicUnit::arrive(const Vector2D &target)
 {
 	KinematicArriveSteering* pArriveSteering = new KinematicArriveSteering( this, target );
+	mpCurrentSteering = pArriveSteering;
 	setSteering( pArriveSteering );
 }
 
@@ -212,16 +217,16 @@ void KinematicUnit::inRange(bool isInRange)
 {
 	if (mInRange == true && isInRange == false)
 	{
-		this->dynamicWander();
-		mpCurrentSteering->getSteering();
+		//this->dynamicWander();
+		//mpCurrentSteering->getSteering();
 		mInRange = false;
 	}
 	else if (mInRange == false && isInRange == true)
 	{
-		if (mName == DYNAMIC_ARRIVE)
-			this->dynamicFlee(gpGame->getUnitManager()->getPlayer());
-		else
-			this->dynamicSeek(gpGame->getUnitManager()->getPlayer());
+		//if (mName == DYNAMIC_ARRIVE)
+		//	this->dynamicFlee(gpGame->getUnitManager()->getPlayer());
+		//else
+		//	this->dynamicSeek(gpGame->getUnitManager()->getPlayer());
 		mInRange = true;
 	}
 }
@@ -269,16 +274,12 @@ Steering* KinematicUnit::getUnitSteering(int indexPos)
 	return mSteeringBehavior.at(indexPos);
 }
 
-void KinematicUnit::clear()
+void KinematicUnit::clean()
 {
-	/*
-	for each (Steering* behavior in mSteeringBehavior)
-		delete behavior;
-	mSteeringBehavior.clear();
-	
-	for (int i = getSize() - 1; i > 0; --i)
+	for (int i = 0; i < getSize(); ++i)
 		deleteUnit(i);
-	mSteeringBehavior.clear();*/
+	mSteeringBehavior.clear();
+	//delete mpCurrentSteering;
 }
 
 void KinematicUnit::deleteUnit(unsigned int indexPos)
@@ -286,7 +287,6 @@ void KinematicUnit::deleteUnit(unsigned int indexPos)
 	if (indexPos < 0 || indexPos >= mSteeringBehavior.size())
 		return;
 	delete mSteeringBehavior.at(indexPos);
-	mSteeringBehavior.erase(mSteeringBehavior.begin() + indexPos);
 }
 
 

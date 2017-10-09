@@ -15,6 +15,9 @@ public:
 
 	virtual Steering* getSteering();
 
+	//added this in just for collision avoidence
+	float dot(Vector2D& v1, Vector2D& v2) { return v1.getX() * v2.getX() + v1.getY() * v2.getY(); };
+
 private:
 	KinematicUnit* mpMover;
 	float mReaction, mDistance, mStrength;

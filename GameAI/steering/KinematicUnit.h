@@ -67,7 +67,7 @@ public:
 
 	void addSteeringBehavior(Steering* theSteering);
 	Steering* getUnitSteering(int indexPos);
-	void clear();
+	void clean();
 	void deleteUnit(unsigned int indexPos);
 	//KinematicUnit* getUnit(int indexPos);
 	void wallCollision();

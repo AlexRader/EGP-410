@@ -8,7 +8,7 @@
 UnitManager::UnitManager()
 {
 	mPause = false;
-	mRadius = 20.0f;
+	mRadius = 200.0f;
 	//gpEventSystem->addListener(CLICK_EVENT, this);
 }
 
@@ -20,13 +20,19 @@ UnitManager::~UnitManager()
 void UnitManager::addUnitPlayer(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
 {
 	mpPlayer = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
+	mpPlayer->arrive(position);
 }
 
 void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orientation, const Vector2D& velocity, float rotationVel, std::string name, float maxVelocity, float maxAcceleration)
 {
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 	temp->dynamicWander();
-	//temp->collisionAvoidence();
+	temp->collisionAvoidence();
+
+	if (name == DYNAMIC_SEEK)
+		temp->dynamicSeek(gpGame->getUnitManager()->getPlayer());
+	else
+		temp->dynamicFlee(gpGame->getUnitManager()->getPlayer());
 
 	mUnits.push_back(temp);
 }

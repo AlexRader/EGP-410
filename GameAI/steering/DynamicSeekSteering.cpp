@@ -1,12 +1,12 @@
 #include "DynamicSeekSteering.h"
 #include "KinematicUnit.h"
-
+#include "Game.h"
 DynamicSeekSteering::DynamicSeekSteering(KinematicUnit *pMover, KinematicUnit* pTarget, bool shouldFlee)
 :mpMover(pMover)
 ,mpTarget(pTarget)
 ,mShouldFlee(shouldFlee)
 {
-	setWeight(0.5f);
+	setWeight(1.2f);
 	mApplyDirectly = false;
 }
 
@@ -20,6 +20,9 @@ Steering* DynamicSeekSteering::getSteering()
 	{
 		mLinear = mpMover->getPosition() - mpTarget->getPosition();
 	}
+
+	if (mLinear.getLength() > gpGame->getUnitManager()->getRadius())
+		mLinear *= 0;
 
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
