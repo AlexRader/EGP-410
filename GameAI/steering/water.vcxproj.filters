@@ -124,6 +124,9 @@
     <ClCompile Include="BoidSpawnMessage.cpp">
       <Filter>Source Files\Messaging</Filter>
     </ClCompile>
+    <ClCompile Include="WeightChange.cpp">
+      <Filter>Source Files\Messaging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsBuffer.h">
@@ -247,6 +250,9 @@
       <Filter>Header Files\Steering</Filter>
     </ClInclude>
     <ClInclude Include="BoidSpawnMessage.h">
+      <Filter>Header Files\Messaging</Filter>
+    </ClInclude>
+    <ClInclude Include="WeightChange.h">
       <Filter>Header Files\Messaging</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,7 +15,8 @@ enum MessageType
 	A_CONTROL = 7,
 	ESCAPE_MESSAGE = 8,
 	PLUS_MINUS = 9,
-	BOIDS_SPAWN = 10
+	BOIDS_SPAWN = 10,
+	WEIGHT_CHANGE = 11
 };
 
 class GameMessage: public Trackable

@@ -66,10 +66,8 @@ void Hud::draw()
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 5, ALLEGRO_ALIGN_LEFT, angularVelocity.c_str());
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 6, ALLEGRO_ALIGN_LEFT, mBoids.c_str());
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 7, ALLEGRO_ALIGN_LEFT, vMatch.c_str());
-	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 8, ALLEGRO_ALIGN_LEFT, sep.c_str());
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 9, ALLEGRO_ALIGN_LEFT, coh.c_str());
-
-	
+	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 8, ALLEGRO_ALIGN_LEFT, sep.c_str());
 }
 
 void Hud::update(float time)

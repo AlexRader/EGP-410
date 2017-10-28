@@ -296,10 +296,10 @@ void KinematicUnit::setVMatchingWeight(float var)
 	if (var < 0)
 		temp *= -1;
 
-	VelocityMatchingSteering* pVelocityMatch;
-	if (pVelocityMatch->getWeight() + var > 0)
+	Steering* pVelocityMatch = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(1);
+	if (pVelocityMatch->getWeight() + temp > 0)
 	{
-		pVelocityMatch->setWeight(pVelocityMatch->getWeight() + var);
+		pVelocityMatch->setWeight(pVelocityMatch->getWeight() + temp);
 	}
 }
 
@@ -310,10 +310,10 @@ void KinematicUnit::setCohesion(float var)
 	// ensures the value give = .1 or -.1
 	if (var < 0)
 		temp *= -1;
-	CohesionSteering* pCohesion;
-	if (pCohesion->getWeight() + var > 0)
+	Steering* pCohesion = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2);
+	if (pCohesion->getWeight() + temp > 0)
 	{
-		pCohesion->setWeight(pCohesion->getWeight() + var);
+		pCohesion->setWeight(pCohesion->getWeight() + temp);
 	}
 }
 
@@ -324,31 +324,10 @@ void KinematicUnit::setSeperation(float var)
 	// ensures the value give = .1 or -.1
 	if (var < 0)
 		temp *= -1;
-	SeperationSteering* pSeperation;
-	if (pSeperation->getWeight() + var > 0) // make sure we dont go negative
+	Steering* pSeperation = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3);
+	if (pSeperation->getWeight() + temp > 0) // make sure we dont go negative
 	{
-		pSeperation->setWeight(pSeperation->getWeight() + var);
+		pSeperation->setWeight(pSeperation->getWeight() + temp);
 	}
 }
-/*
-//gets the weight of the behavior
-float KinematicUnit::getVMatching()
-{
-	VelocityMatchingSteering* pSeperation;
-	return pSeperation->getWeight();
-}
-
-//gets the weight of the behavior
-float KinematicUnit::getCohesion()
-{
-	CohesionSteering* pCohesion;
-	return pCohesion->getWeight();
-}
-
-//gets the weight of the behavior
-float KinematicUnit::getSeperation()
-{
-	SeperationSteering* pSeperation;
-	return pSeperation->getWeight();
-}*/
 

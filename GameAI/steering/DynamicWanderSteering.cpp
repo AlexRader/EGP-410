@@ -15,7 +15,6 @@ void DynamicWanderSteering::setAngle(Vector2D vec, float numb)
 	float length = vec.getLength();
 	vec.setX(cos(numb) * length);
 	vec.setY(sin(numb) * length);
-
 }
 
 Steering* DynamicWanderSteering::getSteering()

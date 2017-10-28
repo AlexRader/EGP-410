@@ -52,6 +52,7 @@
     <ClInclude Include="Steering.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="VelocityMatchingSteering.h" />
+    <ClInclude Include="WeightChange.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AngularControl.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="Steering.cpp" />
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="VelocityMatchingSteering.cpp" />
+    <ClCompile Include="WeightChange.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07ED8114-0659-4424-9468-50DBBEA5882A}</ProjectGuid>

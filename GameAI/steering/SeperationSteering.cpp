@@ -19,12 +19,11 @@ Steering* SeperationSteering::getSteering()
 	//loops through all targets
 	for (int i = 0; i < gpGame->getUnitManager()->getSize(); ++i)
 	{
-		//dont check ourself
 		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
 			direction = gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition();
 			distance = direction.getLength();
-		
+
 			// if the distance calculated is less than the raction radius check stuff
 			if (distance < mReaction)
 			{

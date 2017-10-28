@@ -28,8 +28,8 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 	temp->dynamicWander();
 	temp->VelocityMatching(); 
-	temp->Seperation();
 	temp->Cohesion();
+	temp->Seperation();
 
 	mUnits.push_back(temp);
 }

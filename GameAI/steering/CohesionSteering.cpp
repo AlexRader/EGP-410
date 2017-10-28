@@ -18,24 +18,20 @@ Steering* CohesionSteering::getSteering()
 	float distance;
 	mReaction = gpGame->getUnitManager()->getRadius() + ADDED_RANGE; // sets the radius in which you check cohesion
 
-													   //loops through all targets
+	//loops through all targets
 	for (int i = 0; i < gpGame->getUnitManager()->getSize(); ++i)
 	{
-		//dont check ourself
-		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
+		direction = gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition();
+		distance = direction.getLength();
+		// if the distance calculated is less than the raction radius change center of mass
+		if (distance < mReaction)
 		{
-			direction = gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition();
-			distance = direction.getLength();
-			// if the distance calculated is less than the raction radius change center of mass
-			if (distance < mReaction)
-			{
-				centerOfMass += gpGame->getUnitManager()->getUnit(i)->getPosition();
-				neighbors++;
-				mStrength = min(DECAY_COEFFICIENT_VARIENT / (distance * distance), mpMover->getMaxAcceleration());
-				direction.normalize();
+			centerOfMass += gpGame->getUnitManager()->getUnit(i)->getPosition();
+			neighbors++;
+			mStrength = min(DECAY_COEFFICIENT_VARIENT / (distance * distance), mpMover->getMaxAcceleration());
+			direction.normalize();
 
-				mLinear += direction * mStrength;
-			}
+			mLinear += direction * mStrength;
 		}
 	}
 	// calculates the cohesion to the center of mass
