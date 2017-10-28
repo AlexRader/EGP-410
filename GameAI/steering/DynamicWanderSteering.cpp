@@ -6,7 +6,7 @@
 DynamicWanderSteering::DynamicWanderSteering(KinematicUnit *pMover)
 	:mpMover(pMover)
 {
-	setWeight(0.05f);
+	setWeight(0.1f);
 	mApplyDirectly = false;
 }
 
@@ -36,6 +36,8 @@ Steering* DynamicWanderSteering::getSteering()
 	mLinear = wanderForce;
 	mLinear.normalize();
 	mLinear *= mpMover->getMaxVelocity();
+	mLinear.normalize();
+	mLinear *= mpMover->getMaxAcceleration();
 	mAngular = 0;
 
 	return this;

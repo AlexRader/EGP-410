@@ -9,7 +9,7 @@ const float SPAWN_LOCATION_MODIFIER = .5f;
 UnitManager::UnitManager()
 {
 	mPause = false;
-	mRadius = 200.0f;
+	mRadius = 100.0f;
 	// setting a spawnPoint
 	mSpawnPoint.setX (gpGame->getScreenWidth() * SPAWN_LOCATION_MODIFIER);
 	mSpawnPoint.setY(gpGame->getScreenHeight() * SPAWN_LOCATION_MODIFIER);
@@ -37,6 +37,8 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 	temp->dynamicWander();
 	temp->Seperation();
+	temp->VelocityMatching();
+	temp->Cohesion();
 
 /*	
 	temp->collisionAvoidence();

@@ -12,6 +12,8 @@
 #include "DynamicWanderSteering.h"
 #include "CollisionAvoidenceSteering.h"
 #include "SeperationSteering.h"
+#include "VelocityMatchingSteering.h"
+#include "CohesionSteering.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -76,30 +78,6 @@ void KinematicUnit::update(float time)
 			steering->setLinear(MaxLinear);
 			steering->setAngular(MaxAngular);
 			wallCollision();
-			//steering = mpCurrentSteering->getSteering();
-			
-			/*
-			checkDist();
-			*/
-			
-
-			/*mRandomChange -= time;
-			// this entire function addition is to get wander to work
-			// everytime you getSteering() for wander it changes the direction of the ai
-			// basically it makes the ai freak out
-			if (mRandomChange <= 0 && mInRange == false)
-			{
-				setRandomNumber();
-				steering = mpCurrentSteering->getSteering();
-			}
-			else if (mInRange == true)
-				steering = mpCurrentSteering->getSteering();
-			else
-			{
-				steering = mpCurrentSteering;
-				//steering = trunc(steering);
-				
-			}*/
 		}
 		else
 			steering = mpCurrentSteering->getSteering();
@@ -198,10 +176,24 @@ void KinematicUnit::collisionAvoidence()
 	setSteering(pCollisionAvoidence);
 }
 
+//seperation function
 void KinematicUnit::Seperation()
 {
 	SeperationSteering* pSeperation = new SeperationSteering(this);
 	setSteering(pSeperation);
+}
+
+// velocity matching function
+void KinematicUnit::VelocityMatching()
+{
+	VelocityMatchingSteering* pVelocityMatch = new VelocityMatchingSteering(this);
+	setSteering(pVelocityMatch);
+}
+
+void KinematicUnit::Cohesion()
+{
+	CohesionSteering* pCohesion = new CohesionSteering(this);
+	setSteering(pCohesion);
 }
 
 void KinematicUnit::setRandomNumber()

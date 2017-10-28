@@ -62,6 +62,8 @@ public:
 	void dynamicArrive( KinematicUnit* pTarget );
 	void collisionAvoidence();
 	void Seperation();
+	void VelocityMatching();
+	void Cohesion();
 
 
 	inline int getSize() const { return mSteeringBehavior.size(); };
