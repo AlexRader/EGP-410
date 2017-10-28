@@ -7,7 +7,7 @@ VelocityMatchingSteering::VelocityMatchingSteering(KinematicUnit* pMover)
 	, mRadius(0.0f)
 	, mCount(0.0f)
 {
-	setWeight(1.0f);
+	setWeight(1.20f);
 }
 
 
@@ -26,7 +26,7 @@ Steering* VelocityMatchingSteering::getSteering()
 			if (distance < mRadius)
 			{
 				temp = gpGame->getUnitManager()->getUnit(i)->getVelocity() - mpMover->getVelocity();
-				temp /= TIME_TO_TARGET;
+				//temp /= TIME_TO_TARGET;
 				mStored += temp;
 				mCount++;
 			}

@@ -6,7 +6,7 @@
 class KinematicUnit;
 
 const float DECAY_COEFFICIENT_VARIENT = -20.0f;
-const float ADDED_RANGE = 50.0f;
+const float ADDED_RANGE = 20.0f;
 
 class CohesionSteering :public Steering
 {

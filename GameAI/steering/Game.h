@@ -73,6 +73,11 @@ public:
 	inline int getScreenWidth() const { return mGameWidth; };
 	inline int getScreenHeight() const { return mGameHeight; };
 
+	//returns the smaller varient size
+	inline int getSmaller() const { return mSmallerSize; }; // returns the variable smaller size
+	void setSpawnPoint(Vector2D vector); // sets the spawnPoint
+	inline Vector2D getSpawnPoint() const { return mSpawnPoint; }; // returns the location of spawn
+
 
 private:
 	GraphicsSystem* mpGraphicsSystem;
@@ -95,7 +100,9 @@ private:
 	IDType mVerticalWallBufferID;
 	IDType mHorizontalWallBufferID;
 
-
+	//spawnPoint for game and distance variable
+	Vector2D mSpawnPoint;
+	int mSmallerSize;
 	
 	//KinematicUnit* mpUnit;
 	//KinematicUnit* mpAIUnit;
@@ -104,6 +111,7 @@ private:
 
 float genRandomBinomial();//range -1:1 from "Artificial Intelligence for Games", Millington and Funge
 float genRandomFloat();//range 0:1 from "Artificial Intelligence for Games", Millington and Funge
+int genRandomInteger();
 
 extern Game* gpGame;
 extern PerformanceTracker* gpPerformanceTracker;

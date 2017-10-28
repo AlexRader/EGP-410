@@ -6,7 +6,7 @@ SeperationSteering::SeperationSteering(KinematicUnit* pMover)
 	:mpMover(pMover)
 	, mReaction(0.0f)
 {
-	setWeight(.5f);
+	setWeight(.9f);
 }
 
 //behavior to keep people seperated
@@ -19,15 +19,20 @@ Steering* SeperationSteering::getSteering()
 	//loops through all targets
 	for (int i = 0; i < gpGame->getUnitManager()->getSize(); ++i)
 	{
-		direction = gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition();
-		distance = direction.getLength();
-		// if the distance calculated is less than the raction radius check stuff
-		if (distance < mReaction)
+		//dont check ourself
+		if (gpGame->getUnitManager()->getUnit(i) != mpMover)
 		{
-			mStrength = min(DECAY_COEFFICIENT_VAR / (distance * distance), mpMover->getMaxAcceleration());
-			direction.normalize();
+			direction = gpGame->getUnitManager()->getUnit(i)->getPosition() - mpMover->getPosition();
+			distance = direction.getLength();
+		
+			// if the distance calculated is less than the raction radius check stuff
+			if (distance < mReaction)
+			{
+				mStrength = min(DECAY_COEFFICIENT_VAR / (distance * distance), mpMover->getMaxAcceleration());
+				direction.normalize();
 
-			mLinear += direction * mStrength;
+				mLinear += direction * mStrength;
+			}
 		}
 	}
 	return this;

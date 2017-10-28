@@ -48,7 +48,7 @@ public:
 
 	inline Vector2D getSpawnPoint() const { return mSpawnPoint; }; // returns the location of spawn
 	inline int getSmaller() const { return mSmallerSize; }; // returns the variable smaller size
-	int genRandomInteger(); 
+	//int genRandomInteger(); 
 	//bool findNearestSequentialUnit();
 
 	//void pause();
@@ -64,8 +64,9 @@ private:
 	std::vector<KinematicUnit*> mUnitsWall;
 	bool mPause;
 	KinematicUnit* mpPlayer;
-	Vector2D mSpawnPoint;
 	float mRadius;
+
+	Vector2D mSpawnPoint;
 	int mSmallerSize;
 };
 

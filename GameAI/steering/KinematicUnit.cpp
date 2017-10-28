@@ -51,7 +51,7 @@ void KinematicUnit::update(float time)
 	// this got updated
 	Steering* steering;
 	Steering* holdSteering;
-	Vector2D MaxLinear = Vector2D(0.0f,0.0f);
+	Vector2D MaxLinear;
 	float MaxAngular = 0.0f;
 
 	if( mSteeringBehavior.size() > 0 )
@@ -288,4 +288,67 @@ void KinematicUnit::deleteUnit(unsigned int indexPos)
 	delete mSteeringBehavior.at(indexPos);
 }
 
+//sets the weight of velocity matching
+void KinematicUnit::setVMatchingWeight(float var)
+{
+	float temp = .1;
+	 // ensures the value give = .1 or -.1
+	if (var < 0)
+		temp *= -1;
+
+	VelocityMatchingSteering* pVelocityMatch;
+	if (pVelocityMatch->getWeight() + var > 0)
+	{
+		pVelocityMatch->setWeight(pVelocityMatch->getWeight() + var);
+	}
+}
+
+//sets the weight of cohesion behavior
+void KinematicUnit::setCohesion(float var)
+{
+	float temp = .1;
+	// ensures the value give = .1 or -.1
+	if (var < 0)
+		temp *= -1;
+	CohesionSteering* pCohesion;
+	if (pCohesion->getWeight() + var > 0)
+	{
+		pCohesion->setWeight(pCohesion->getWeight() + var);
+	}
+}
+
+//sets the weight of seperation behavior
+void KinematicUnit::setSeperation(float var)
+{
+	float temp = .1;
+	// ensures the value give = .1 or -.1
+	if (var < 0)
+		temp *= -1;
+	SeperationSteering* pSeperation;
+	if (pSeperation->getWeight() + var > 0) // make sure we dont go negative
+	{
+		pSeperation->setWeight(pSeperation->getWeight() + var);
+	}
+}
+/*
+//gets the weight of the behavior
+float KinematicUnit::getVMatching()
+{
+	VelocityMatchingSteering* pSeperation;
+	return pSeperation->getWeight();
+}
+
+//gets the weight of the behavior
+float KinematicUnit::getCohesion()
+{
+	CohesionSteering* pCohesion;
+	return pCohesion->getWeight();
+}
+
+//gets the weight of the behavior
+float KinematicUnit::getSeperation()
+{
+	SeperationSteering* pSeperation;
+	return pSeperation->getWeight();
+}*/
 

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AngularControl.h" />
+    <ClInclude Include="BoidSpawnMessage.h" />
     <ClInclude Include="ClickEvent.h" />
     <ClInclude Include="CohesionSteering.h" />
     <ClInclude Include="CollisionAvoidenceSteering.h" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AngularControl.cpp" />
+    <ClCompile Include="BoidSpawnMessage.cpp" />
     <ClCompile Include="ClickEvent.cpp" />
     <ClCompile Include="CohesionSteering.cpp" />
     <ClCompile Include="CollisionAvoidenceSteering.cpp" />

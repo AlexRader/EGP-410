@@ -27,6 +27,7 @@ Game* gpGame = NULL;
 
 const int WIDTH = 1024;
 const int HEIGHT = 768;
+const float SPAWN_LOCATION_MODIFIER = .5f;
 
 Game::Game()
 	:mpGraphicsSystem(NULL)
@@ -70,6 +71,7 @@ bool Game::init()
 	//create and init GraphicsSystem
 	mpGraphicsSystem = new GraphicsSystem();
 	bool goodGraphics = mpGraphicsSystem->init( mGameWidth, mGameHeight );
+	setSpawnPoint(Vector2D(mGameWidth, mGameHeight));
 	if(!goodGraphics) 
 	{
 		fprintf(stderr, "failed to initialize GraphicsSystem object!\n");
@@ -305,4 +307,22 @@ float genRandomFloat()
 void Game::createUnit(const std::string name, Vector2D vec)
 {
 	mpUnitManager->addUnit(mpSpriteManager->getSprite(AI_ICON_SPRITE_ID), vec, 1, Vector2D(genRandomFloat(), genRandomFloat()), 0.0f, name, 180.0f, 100.0f);
+}
+
+//sets the spawn point from the size of the screen or input vector2D
+void Game::setSpawnPoint(Vector2D vector)
+{
+	mSpawnPoint.setX(vector.getX() * SPAWN_LOCATION_MODIFIER);
+	mSpawnPoint.setY(vector.getY() * SPAWN_LOCATION_MODIFIER);
+	if (mSpawnPoint.getX() < mSpawnPoint.getY())
+		mSmallerSize = mSpawnPoint.getX() * SPAWN_LOCATION_MODIFIER;
+	else
+		mSmallerSize = mSpawnPoint.getY() * SPAWN_LOCATION_MODIFIER;
+}
+
+//so this function just returns a random number between a radius of a third of the smaller screen perameters
+int genRandomInteger()
+{
+	int temp = gpGame->getSmaller();
+	return rand() % temp - (temp - 1);
 }

@@ -65,6 +65,16 @@ public:
 	void VelocityMatching();
 	void Cohesion();
 
+	/*
+	//get the desired behaviors
+	float getVMatching();
+	float getCohesion();
+	float getSeperation();*/
+
+	//allows changes to be made to steering values
+	void setVMatchingWeight(float var);
+	void setCohesion(float var);
+	void setSeperation(float var);
 
 	inline int getSize() const { return mSteeringBehavior.size(); };
 
