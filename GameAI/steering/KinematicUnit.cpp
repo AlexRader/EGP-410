@@ -11,6 +11,7 @@
 #include "DynamicArriveSteering.h"
 #include "DynamicWanderSteering.h"
 #include "CollisionAvoidenceSteering.h"
+#include "SeperationSteering.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -195,6 +196,12 @@ void KinematicUnit::collisionAvoidence()
 {
 	CollisionAvoidenceSteering* pCollisionAvoidence = new CollisionAvoidenceSteering(this);
 	setSteering(pCollisionAvoidence);
+}
+
+void KinematicUnit::Seperation()
+{
+	SeperationSteering* pSeperation = new SeperationSteering(this);
+	setSteering(pSeperation);
 }
 
 void KinematicUnit::setRandomNumber()

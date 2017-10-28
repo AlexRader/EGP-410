@@ -104,13 +104,21 @@ void InputManager::update()
 		
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_F) && !al_key_down(&mPreviousState, ALLEGRO_KEY_F))
 		{
-			Vector2D pos(gpGame->getUnitManager()->getPlayer()->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getPlayer()->getPosition().getY());
+			//Vector2D pos(gpGame->getUnitManager()->getPlayer()->getPosition().getX() - 200.0f, gpGame->getUnitManager()->getPlayer()->getPosition().getY());
+			//Vector2D pos(gpGame->getUnitManager()->getSpawnPoint());
+			//spawns in a random position
+			Vector2D pos(gpGame->getUnitManager()->getSpawnPoint().getX() + gpGame->getUnitManager()->genRandomInteger(), gpGame->getUnitManager()->getSpawnPoint().getY() + gpGame->getUnitManager()->genRandomInteger());
+
 			GameMessage* pMessage = new SpawnDynamicArrive(pos);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_S) && !al_key_down(&mPreviousState, ALLEGRO_KEY_S))
 		{
-			Vector2D pos(gpGame->getUnitManager()->getPlayer()->getPosition().getX(), gpGame->getUnitManager()->getPlayer()->getPosition().getY() - 100);
+			//Vector2D pos(gpGame->getUnitManager()->getPlayer()->getPosition().getX(), gpGame->getUnitManager()->getPlayer()->getPosition().getY() - 100);
+			//Vector2D pos(gpGame->getUnitManager()->getSpawnPoint());
+			//spawns in a random position
+			Vector2D pos(gpGame->getUnitManager()->getSpawnPoint().getX() + gpGame->getUnitManager()->genRandomInteger(), gpGame->getUnitManager()->getSpawnPoint().getY() + gpGame->getUnitManager()->genRandomInteger());
+
 			GameMessage* pMessage = new SpawnDynamicSeek(pos);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}

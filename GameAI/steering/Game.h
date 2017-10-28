@@ -69,6 +69,11 @@ public:
 
 	inline void changeDebug() { mDebug = !mDebug; };
 
+	// added for access to screen size for all
+	inline int getScreenWidth() const { return mGameWidth; };
+	inline int getScreenHeight() const { return mGameHeight; };
+
+
 private:
 	GraphicsSystem* mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
@@ -80,6 +85,7 @@ private:
 	InputManager* mpInputManager;
 	bool mShouldExit, mDebug;
 	Hud* mpHud;
+	int mGameWidth, mGameHeight; // added for access to screen size for all
 	//should be somewhere else
 	ALLEGRO_FONT* mpFont;
 	ALLEGRO_SAMPLE* mpSample;

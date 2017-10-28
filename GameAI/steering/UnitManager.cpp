@@ -5,10 +5,19 @@
 #include "ClickEvent.h"
 #include "UnitManager.h"
 
+const float SPAWN_LOCATION_MODIFIER = .5f;
 UnitManager::UnitManager()
 {
 	mPause = false;
 	mRadius = 200.0f;
+	// setting a spawnPoint
+	mSpawnPoint.setX (gpGame->getScreenWidth() * SPAWN_LOCATION_MODIFIER);
+	mSpawnPoint.setY(gpGame->getScreenHeight() * SPAWN_LOCATION_MODIFIER);
+	if (mSpawnPoint.getX() < mSpawnPoint.getY())
+		mSmallerSize = mSpawnPoint.getX() * SPAWN_LOCATION_MODIFIER;
+	else
+		mSmallerSize = mSpawnPoint.getY() * SPAWN_LOCATION_MODIFIER;
+
 	//gpEventSystem->addListener(CLICK_EVENT, this);
 }
 
@@ -27,13 +36,16 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 {
 	KinematicUnit *temp = new KinematicUnit(pSprite, position, orientation, velocity, name, rotationVel, maxVelocity, maxAcceleration);
 	temp->dynamicWander();
+	temp->Seperation();
+
+/*	
 	temp->collisionAvoidence();
 
 	if (name == DYNAMIC_SEEK)
 		temp->dynamicSeek(gpGame->getUnitManager()->getPlayer());
 	else
 		temp->dynamicFlee(gpGame->getUnitManager()->getPlayer());
-
+*/
 	mUnits.push_back(temp);
 }
 
@@ -106,4 +118,9 @@ void UnitManager::setAngularVelocity(float val)
 	mpPlayer->setRotationalVelocitySecond(val);
 	for each (KinematicUnit* unit in mUnits)
 		unit->setRotationalVelocitySecond(val);
+}
+//so this function just returns a random number between a radius of a third of the smaller screen perameters
+int UnitManager::genRandomInteger()
+{
+	return rand() % getSmaller() - (getSmaller() - 1);
 }

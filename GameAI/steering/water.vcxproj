@@ -42,6 +42,7 @@
     <ClInclude Include="PlusMinusMessage.h" />
     <ClInclude Include="RadiusChange.h" />
     <ClInclude Include="RemoveAi.h" />
+    <ClInclude Include="SeperationSteering.h" />
     <ClInclude Include="SpawnDynamicArrive.h" />
     <ClInclude Include="SpawnDynamicSeek.h" />
     <ClInclude Include="Sprite.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="PlusMinusMessage.cpp" />
     <ClCompile Include="RadiusChange.cpp" />
     <ClCompile Include="RemoveAi.cpp" />
+    <ClCompile Include="SeperationSteering.cpp" />
     <ClCompile Include="SpawnDynamicArrive.cpp" />
     <ClCompile Include="SpawnDynamicSeek.cpp" />
     <ClCompile Include="Sprite.cpp" />

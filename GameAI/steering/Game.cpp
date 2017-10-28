@@ -41,6 +41,8 @@ Game::Game()
 	, mpUnitManager(NULL)
 	, mpInputManager(NULL)
 	, mpHud(NULL)
+	, mGameWidth(WIDTH)
+	, mGameHeight(HEIGHT)
 	//,mSmurfBufferID(INVALID_ID)
 {
 }
@@ -67,7 +69,7 @@ bool Game::init()
 
 	//create and init GraphicsSystem
 	mpGraphicsSystem = new GraphicsSystem();
-	bool goodGraphics = mpGraphicsSystem->init( WIDTH, HEIGHT );
+	bool goodGraphics = mpGraphicsSystem->init( mGameWidth, mGameHeight );
 	if(!goodGraphics) 
 	{
 		fprintf(stderr, "failed to initialize GraphicsSystem object!\n");

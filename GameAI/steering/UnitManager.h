@@ -45,6 +45,10 @@ public:
 	void setEnemyVelocity(float val);
 
 	void setAngularVelocity(float val);
+
+	inline Vector2D getSpawnPoint() const { return mSpawnPoint; }; // returns the location of spawn
+	inline int getSmaller() const { return mSmallerSize; }; // returns the variable smaller size
+	int genRandomInteger(); 
 	//bool findNearestSequentialUnit();
 
 	//void pause();
@@ -60,7 +64,9 @@ private:
 	std::vector<KinematicUnit*> mUnitsWall;
 	bool mPause;
 	KinematicUnit* mpPlayer;
+	Vector2D mSpawnPoint;
 	float mRadius;
+	int mSmallerSize;
 };
 
 
