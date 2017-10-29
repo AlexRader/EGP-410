@@ -9,7 +9,7 @@
 UnitManager::UnitManager()
 {
 	mPause = false;
-	mRadius = 100.0f;
+	mRadius = 75.0f;
 }
 
 UnitManager::~UnitManager()
@@ -31,6 +31,7 @@ void UnitManager::addUnit(Sprite* pSprite, const Vector2D& position, float orien
 	temp->VelocityMatching(); 
 	temp->Cohesion();
 	temp->Seperation();
+	temp->Align();
 
 
 	mUnits.push_back(temp);

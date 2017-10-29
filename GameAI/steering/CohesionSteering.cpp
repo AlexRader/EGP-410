@@ -6,7 +6,7 @@ CohesionSteering::CohesionSteering(KinematicUnit* pMover)
 	:mpMover(pMover)
 	, mReaction(0.0f)
 {
-	setWeight(1.0f);
+	setWeight(0.6f);
 }
 
 //behavior to keep people seperated

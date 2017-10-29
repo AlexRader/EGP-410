@@ -13,6 +13,7 @@ Hud::Hud()
 ,mCohesion("C: Modify Cohesion weight")
 ,mSeperation("S: Modify Seperation weight")
 ,mVMatch("X: Modify Velocity Matching weight")
+,mAlign("Q: Modify Align Weight")
 ,mSpacingVal(20)
 {
 }
@@ -30,6 +31,7 @@ void Hud::draw()
 	std::stringstream cohesion;
 	std::stringstream seperation;
 	std::stringstream velocityMatch;
+	std::stringstream align;
 	radius << gpGame->getUnitManager()->getRadius();
 
 	if (gpGame->getUnitManager()->getSize() != 0)
@@ -39,6 +41,7 @@ void Hud::draw()
 		velocityMatch << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2)->getWeight();
 		seperation << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3)->getWeight();
 		cohesion << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(4)->getWeight();
+		align << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(5)->getWeight();
 	}
 	else
 	{
@@ -47,6 +50,7 @@ void Hud::draw()
 		velocityMatch << " ";
 		seperation << " ";
 		cohesion << " ";
+		align << " ";
 	}
 
 	std::string val = mRadius +  " " + radius.str().c_str();
@@ -55,6 +59,7 @@ void Hud::draw()
 	std::string vMatch = mVMatch + " " + velocityMatch.str().c_str();
 	std::string sep = mSeperation + " " + seperation.str().c_str();
 	std::string coh = mCohesion + " " + cohesion.str().c_str();
+	std::string al = mAlign + " " + align.str().c_str();
 
 
 	//al_draw_text(gpGame->getFont(), al_map_rgb(255, 255, 255), mouseState.x, mouseState.y, ALLEGRO_ALIGN_CENTRE, mousePos.str().c_str());
@@ -66,8 +71,10 @@ void Hud::draw()
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 5, ALLEGRO_ALIGN_LEFT, angularVelocity.c_str());
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 6, ALLEGRO_ALIGN_LEFT, mBoids.c_str());
 	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 7, ALLEGRO_ALIGN_LEFT, vMatch.c_str());
-	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 9, ALLEGRO_ALIGN_LEFT, coh.c_str());
-	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 8, ALLEGRO_ALIGN_LEFT, sep.c_str());
+	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 8, ALLEGRO_ALIGN_LEFT, coh.c_str());
+	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 9, ALLEGRO_ALIGN_LEFT, sep.c_str());
+	al_draw_text(gpGame->getFont(), al_map_rgb(255, 50, 25), 5, mSpacingVal * 10, ALLEGRO_ALIGN_LEFT, al.c_str());
+
 }
 
 void Hud::update(float time)

@@ -20,8 +20,8 @@ public:
 	void update(float time);
 
 private:
-	std::string mPlus, mMinus, mEnemyVelocity, mRadius, mAngularVelocity, 
-				mBoids, mSeperation, mCohesion, mVMatch;
+	std::string mPlus, mMinus, mEnemyVelocity, mRadius, mAngularVelocity;
+	std::string	mBoids, mSeperation, mCohesion, mVMatch, mAlign;
 	int mSpacingVal;
 
 };

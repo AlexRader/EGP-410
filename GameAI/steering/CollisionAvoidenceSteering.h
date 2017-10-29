@@ -5,8 +5,8 @@
 
 class KinematicUnit;
 
-const float DECAY_COEFFICIENT = 20.0f;
-
+//const float DECAY_COEFFICIENT = 20.0f;
+const float MAX_LOOKAHEAD = 2.0f;
 class CollisionAvoidenceSteering :public Steering
 {
 public:
@@ -21,6 +21,7 @@ public:
 private:
 	KinematicUnit* mpMover;
 	float mLookAhead, mAvoidDistance, mStrength;
-	Vector2D mRayVector; 
+	Vector2D mRayVector, mRayVectorShort; 
+	bool mCloser;
 };
 

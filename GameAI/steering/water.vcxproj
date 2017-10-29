@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlignSteering.h" />
     <ClInclude Include="AngularControl.h" />
     <ClInclude Include="BoidSpawnMessage.h" />
     <ClInclude Include="ClickEvent.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="WeightChange.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AlignSteering.cpp" />
     <ClCompile Include="AngularControl.cpp" />
     <ClCompile Include="BoidSpawnMessage.cpp" />
     <ClCompile Include="ClickEvent.cpp" />

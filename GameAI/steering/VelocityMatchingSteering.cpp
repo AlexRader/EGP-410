@@ -5,9 +5,9 @@
 VelocityMatchingSteering::VelocityMatchingSteering(KinematicUnit* pMover)
 	:mpMover(pMover)
 	, mRadius(0.0f)
-	, mCount(0.0f)
+	, mCount(0)
 {
-	setWeight(1.20f);
+	setWeight(0.7f);
 }
 
 

@@ -25,15 +25,17 @@ void WeightChange::process()
 	{
 		switch (mChoice)
 		{
-		case 0:
+		case 2:
 			gpGame->getUnitManager()->getUnit(0)->setVMatchingWeight(mVar);
 			break;
-		case 1:
+		case 3:
 			gpGame->getUnitManager()->getUnit(0)->setSeperation(mVar);
 			break;
-		case 2:
+		case 4:
 			gpGame->getUnitManager()->getUnit(0)->setCohesion(mVar);
 			break;
+		case 5:
+			gpGame->getUnitManager()->getUnit(0)->setAlign(mVar);
 		}
 	}
 }

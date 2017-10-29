@@ -14,6 +14,7 @@
 #include "SeperationSteering.h"
 #include "VelocityMatchingSteering.h"
 #include "CohesionSteering.h"
+#include "AlignSteering.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -33,7 +34,7 @@ KinematicUnit::KinematicUnit(Sprite *pSprite, const Vector2D &position, float or
 ,mInRange(false)
 ,mRandomChange(0.0f)
 {
-	
+	mRadius = mpSprite->getWidth() * 0.5f;
 }
 
 KinematicUnit::~KinematicUnit()
@@ -53,7 +54,7 @@ void KinematicUnit::update(float time)
 	Steering* holdSteering;
 	Vector2D MaxLinear;
 	float MaxAngular = 0.0f;
-
+	
 	if( mSteeringBehavior.size() > 0 )
 	{
 		if (mName != PLAYER) // this checks for enemy ai
@@ -176,6 +177,13 @@ void KinematicUnit::collisionAvoidence()
 	setSteering(pCollisionAvoidence);
 }
 
+void KinematicUnit::Align()
+{
+	AlignSteering* pAlignSteering = new AlignSteering(this);
+	setSteering(pAlignSteering);
+}
+
+
 //seperation function
 void KinematicUnit::Seperation()
 {
@@ -296,7 +304,7 @@ void KinematicUnit::setVMatchingWeight(float var)
 	if (var < 0)
 		temp *= -1;
 
-	Steering* pVelocityMatch = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(1);
+	Steering* pVelocityMatch = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2);
 	if (pVelocityMatch->getWeight() + temp > 0)
 	{
 		pVelocityMatch->setWeight(pVelocityMatch->getWeight() + temp);
@@ -310,7 +318,7 @@ void KinematicUnit::setCohesion(float var)
 	// ensures the value give = .1 or -.1
 	if (var < 0)
 		temp *= -1;
-	Steering* pCohesion = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2);
+	Steering* pCohesion = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3);
 	if (pCohesion->getWeight() + temp > 0)
 	{
 		pCohesion->setWeight(pCohesion->getWeight() + temp);
@@ -324,10 +332,24 @@ void KinematicUnit::setSeperation(float var)
 	// ensures the value give = .1 or -.1
 	if (var < 0)
 		temp *= -1;
-	Steering* pSeperation = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3);
+	Steering* pSeperation = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(4);
 	if (pSeperation->getWeight() + temp > 0) // make sure we dont go negative
 	{
 		pSeperation->setWeight(pSeperation->getWeight() + temp);
 	}
 }
+// sets align weigh behavior
+void KinematicUnit::setAlign(float var)
+{
+	float temp = .1;
+	// ensures the value give = .1 or -.1
+	if (var < 0)
+		temp *= -1;
+	Steering* pAlign = gpGame->getUnitManager()->getUnit(0)->getUnitSteering(5);
+	if (pAlign->getWeight() + temp > 0) // make sure we dont go negative
+	{
+		pAlign->setWeight(pAlign->getWeight() + temp);
+	}
+}
+
 

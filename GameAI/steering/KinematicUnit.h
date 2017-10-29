@@ -64,6 +64,7 @@ public:
 	void Seperation();
 	void VelocityMatching();
 	void Cohesion();
+	void Align();
 
 	/*
 	//get the desired behaviors
@@ -75,6 +76,7 @@ public:
 	void setVMatchingWeight(float var);
 	void setCohesion(float var);
 	void setSeperation(float var);
+	void setAlign(float var);
 
 	inline int getSize() const { return mSteeringBehavior.size(); };
 
@@ -87,6 +89,7 @@ public:
 
 	void inRange(bool isInRange);
 	void checkDist();
+	inline int getRadius() const { return mRadius; };
 
 private:
 	std::vector<Steering*> mSteeringBehavior;
@@ -97,6 +100,7 @@ private:
 	float mMaxVelocity;
 	float mMaxAcceleration;
 	float mRandomChange;
+	float mRadius;
 	std::string mName;
 	bool mInRange;
 	void setSteering( Steering* pSteering );

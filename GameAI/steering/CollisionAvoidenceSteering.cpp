@@ -4,42 +4,19 @@
 #include "Game.h"
 #include "Sprite.h"
 
+
+
 CollisionAvoidenceSteering::CollisionAvoidenceSteering(KinematicUnit* pMover)
 	:mpMover(pMover)
 	, mLookAhead(3.0f)
 	, mAvoidDistance(64.0f)
+	, mCloser(true)
 {
-	setWeight(1.5f);
+	setWeight(.3f);
 }
 
-
 Steering* CollisionAvoidenceSteering::getSteering()
-{
-	Vector2D var;
-	mRayVector = mpMover->getVelocity();
-	mRayVector.normalize();
-	mRayVector *= mLookAhead;
-	for (int i = 0; i < gpGame->getUnitManager()->getSizeWall(); i++)
-	{
-		var = gpGame->getUnitManager()->getUnitWall(i)->getPosition();
-		if (gpGame->getUnitManager()->getUnitWall(i)->getName() == WALL_HOR)
-		{
-			if (mRayVector.getY() >= var.getY() && mRayVector.getY() <= var.getY() + (gpGame->getUnitManager()->getUnitWall(i)->getSprite()->getHeight()))
-			{
-				//this->setVelocity(Vector2D(this->getVelocity().getX(), (this->getVelocity().getY() * -1)));
-			}
-		}
-		else
-		{
-			if (mRayVector.getX() >= var.getX() && mRayVector.getX() <= var.getX() + gpGame->getUnitManager()->getUnitWall(i)->getSprite()->getWidth())
-			{
-
-			}
-				//this->setVelocity(Vector2D((this->getVelocity().getX() * -1), this->getVelocity().getY()));
-		}
-	}
-
-	/*
+{		
 	float radius = 50.0f;
 	float shortestTime = INFINITY;
 
@@ -89,5 +66,5 @@ Steering* CollisionAvoidenceSteering::getSteering()
 		mLinear = relativePos * gpGame->getUnitManager()->getUnit(0)->getMaxAcceleration();
 	}
 	return this;
-	*/
+	
 }
