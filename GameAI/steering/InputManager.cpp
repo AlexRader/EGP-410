@@ -112,25 +112,24 @@ void InputManager::update()
 			GameMessage* pMessage = new BoidSpawnMessage(pos);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
-
+		 // theses next 3 functions just change value of the three weights for flocking
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_X) && !al_key_down(&mPreviousState, ALLEGRO_KEY_X))
-		{
-			GameMessage* pMessage = new WeightChange(0, mSwitched);
-			MESSAGE_MANAGER->addMessage(pMessage, 0);
-		}
-
-		if (al_key_down(&mCurrentState, ALLEGRO_KEY_S) && !al_key_down(&mPreviousState, ALLEGRO_KEY_S))
-		{
-			GameMessage* pMessage = new WeightChange(2, mSwitched);
-			MESSAGE_MANAGER->addMessage(pMessage, 0);
-		}
-
-		if (al_key_down(&mCurrentState, ALLEGRO_KEY_C) && !al_key_down(&mPreviousState, ALLEGRO_KEY_C))
 		{
 			GameMessage* pMessage = new WeightChange(1, mSwitched);
 			MESSAGE_MANAGER->addMessage(pMessage, 0);
 		}
 
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_C) && !al_key_down(&mPreviousState, ALLEGRO_KEY_C))
+		{
+			GameMessage* pMessage = new WeightChange(2, mSwitched);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
+
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_S) && !al_key_down(&mPreviousState, ALLEGRO_KEY_S))
+		{
+			GameMessage* pMessage = new WeightChange(3, mSwitched);
+			MESSAGE_MANAGER->addMessage(pMessage, 0);
+		}
 
 		if (al_key_down(&mCurrentState, ALLEGRO_KEY_D) && !al_key_down(&mPreviousState, ALLEGRO_KEY_D))
 		{

@@ -36,9 +36,9 @@ void Hud::draw()
 	{
 		velocity << gpGame->getUnitManager()->getUnit(0)->getMaxVelocity();
 		angularVel << gpGame->getUnitManager()->getUnit(0)->getRotationVel();
-		velocityMatch << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(1)->getWeight();
-		seperation << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2)->getWeight();
-		cohesion << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3)->getWeight();
+		velocityMatch << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(2)->getWeight();
+		seperation << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(3)->getWeight();
+		cohesion << gpGame->getUnitManager()->getUnit(0)->getUnitSteering(4)->getWeight();
 	}
 	else
 	{

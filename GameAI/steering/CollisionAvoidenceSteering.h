@@ -20,7 +20,7 @@ public:
 
 private:
 	KinematicUnit* mpMover;
-	float mReaction, mDistance, mStrength;
-	Vector2D mDirection; 
+	float mLookAhead, mAvoidDistance, mStrength;
+	Vector2D mRayVector; 
 };
 
