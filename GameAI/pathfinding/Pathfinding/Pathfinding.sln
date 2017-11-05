@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonPathfindingLib", "CommonPathfindingLib\CommonPathfindingLib.vcxproj", "{B881029E-EB26-4143-A310-87D4D8AE0830}"
 EndProject
@@ -27,14 +27,19 @@ Global
 		{B881029E-EB26-4143-A310-87D4D8AE0830}.Release|Win32.Build.0 = Release|Win32
 		{B42CEE34-8C78-4188-84C8-B49248B734F9}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B42CEE34-8C78-4188-84C8-B49248B734F9}.Debug|Win32.Build.0 = Debug|Win32
+		{B42CEE34-8C78-4188-84C8-B49248B734F9}.Debug|Win32.Deploy.0 = Debug|Win32
 		{B42CEE34-8C78-4188-84C8-B49248B734F9}.Release|Win32.ActiveCfg = Release|Win32
 		{B42CEE34-8C78-4188-84C8-B49248B734F9}.Release|Win32.Build.0 = Release|Win32
 		{09059697-DB0D-44AE-B867-2437B1E3D875}.Debug|Win32.ActiveCfg = Debug|Win32
 		{09059697-DB0D-44AE-B867-2437B1E3D875}.Debug|Win32.Build.0 = Debug|Win32
+		{09059697-DB0D-44AE-B867-2437B1E3D875}.Debug|Win32.Deploy.0 = Debug|Win32
 		{09059697-DB0D-44AE-B867-2437B1E3D875}.Release|Win32.ActiveCfg = Release|Win32
 		{09059697-DB0D-44AE-B867-2437B1E3D875}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {308DAB50-FB82-4851-8413-1BF6EDBCCF2F}
 	EndGlobalSection
 EndGlobal
