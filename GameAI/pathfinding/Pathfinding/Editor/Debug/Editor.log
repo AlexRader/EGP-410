@@ -1,5 +1,6 @@
 ﻿  main.cpp
   Editor.cpp
   Generating Code...
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   Editor.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\Editor.exe
   Editor.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\Editor.pdb (Partial PDB)
