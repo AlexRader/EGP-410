@@ -8,18 +8,24 @@
 #include <vector>
 #include <algorithm>
 #include "NodeRecord.h"
+#include "Vector2D.h"
+
+#include "GameApp.h"
+#include "Grid.h"
 
 using namespace std;
 
 Astar::Astar(Graph* pGraph)
 	:GridPathfinder(dynamic_cast<GridGraph*>(pGraph))
 {
+	GameApp* pGame = dynamic_cast<GameApp*>(gpGame);
+	
+	mpGrid = pGame->getGrid();// need this to get distances
 }
 
 Astar::~Astar()
 {
 }
-
 
 const Path& Astar::findPath(Node* pFrom, Node* pTo)
 {
@@ -59,7 +65,7 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 		//initializes the end node and end node cost
 		NodeRecord* endNode;
 		float endNodeCost = 0.0f;
-		current = getSmallest(open); // get the next node to be checked
+		current = getSmallest(open, pTo); // get the next node to be checked
 		
 		connections = mpGraph->getConnections(current->mNode->getId());
 		// updating connections in open list or adding to open list
@@ -136,22 +142,43 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 }
 
 // returns smallest element
-NodeRecord* Astar::getSmallest(vector<NodeRecord*> list)
+NodeRecord* Astar::getSmallest(vector<NodeRecord*> list, Node* destination)
 {
 	//initializes temp and return value
 	NodeRecord* temp;
 	NodeRecord* returnNode;
+	//position for end node
+	Vector2D endPosition;
+
+	//float of dist holder 
+	float distanceTemp, distanceReturn;
+
+	// end point for calculations
+	endPosition = mpGrid->getULCornerOfSquare(destination->getId());
 
 	returnNode = list.at(0);// start with a default value
 	for (int i = 0; i < list.size(); ++i)
 	{
 		temp = list.at(i);
+		//positions of the grid units
+		distanceTemp = getDistance(mpGrid->getULCornerOfSquare(temp->mNode->getId())
+									, endPosition);
+		distanceReturn = getDistance(mpGrid->getULCornerOfSquare(returnNode->mNode->getId())
+									, endPosition);
+		
 		// switches the return value to smallest element
-		if (temp->mCost < returnNode->mCost)
+		if (temp->mCost + distanceTemp < returnNode->mCost + distanceReturn)
 			returnNode = temp;
 	}
-
 	return returnNode;
+}
+
+//returns distance between two vectors
+float Astar::getDistance(Vector2D first, Vector2D second)
+{
+	Vector2D temp;
+	temp = second - first;
+	return temp.getLengthSquared();
 }
 
 //returns the position of a node

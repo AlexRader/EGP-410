@@ -2,6 +2,7 @@
 
 #include "GridPathfinder.h"
 #include <vector>
+#include "Vector2D.h"
 
 
 class Path;
@@ -19,9 +20,11 @@ public:
 	~Astar();
 
 	const Path& findPath(Node* pFrom, Node* pTo); // delete when done
-	NodeRecord* getSmallest(vector<NodeRecord*> list); // returns the smallest node in open list
+	NodeRecord* getSmallest(vector<NodeRecord*> list, Node* destination); // returns the smallest node in open list
 	NodeRecord* getListNode(vector<NodeRecord*> list, NodeRecord* checkedNode); // returns if the closed list contains the end node
 	int getNodePosition(vector<NodeRecord*> list, NodeRecord* checkedNode); // returns the position of a node
+	float getDistance(Vector2D first, Vector2D second); // distance to point
 
 private:
+	Grid* mpGrid;
 };
