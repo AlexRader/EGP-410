@@ -69,7 +69,7 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 		
 		connections = mpGraph->getConnections(current->mNode->getId());
 		// updating connections in open list or adding to open list
-		for (int i = 0; i < connections.size(); i++)
+		for (unsigned int i = 0; i < connections.size(); i++)
 		{
 			Connection* pConnection = connections[i];
 			endNode = new NodeRecord();
@@ -133,7 +133,7 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
 	//cleanup the memory leaks
-	for (int i = 0; i < mpListToDelete.size(); i++)
+	for (unsigned int i = 0; i < mpListToDelete.size(); i++)
 	{
 		delete mpListToDelete.at(i);
 		mpListToDelete.at(i) = NULL;
@@ -157,7 +157,7 @@ NodeRecord* Astar::getSmallest(vector<NodeRecord*> list, Node* destination)
 	endPosition = mpGrid->getULCornerOfSquare(destination->getId());
 
 	returnNode = list.at(0);// start with a default value
-	for (int i = 0; i < list.size(); ++i)
+	for (unsigned int i = 0; i < list.size(); ++i)
 	{
 		temp = list.at(i);
 		//positions of the grid units
@@ -185,7 +185,7 @@ float Astar::getDistance(Vector2D first, Vector2D second)
 int Astar::getNodePosition(vector<NodeRecord*> list, NodeRecord* checkedNode)
 {
 	// check if the node exists in the list
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list.at(i) == checkedNode)
 			return i; // return the existing node position
@@ -197,7 +197,7 @@ int Astar::getNodePosition(vector<NodeRecord*> list, NodeRecord* checkedNode)
 NodeRecord* Astar::getListNode(vector<NodeRecord*> list, NodeRecord* checkedNode)
 {
 	// check if the node exists in the list
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list.at(i)->mNode == checkedNode->mNode)
 			return checkedNode; // return the existing node

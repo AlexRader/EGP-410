@@ -65,7 +65,7 @@ const Path& Dijkstra::findPath(Node* pFrom, Node* pTo)
 		else
 			connections = mpGraph->getConnections(current->mNode->getId());
 		// updating connections in open list or adding to open list
-		for (int i = 0; i < connections.size(); i++)
+		for (unsigned int i = 0; i < connections.size(); i++)
 		{
 			Connection* pConnection = connections[i];
 			endNode = new NodeRecord();
@@ -118,7 +118,7 @@ const Path& Dijkstra::findPath(Node* pFrom, Node* pTo)
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
 	//cleanup the memory leaks
-	for (int i = 0; i < mpListToDelete.size(); i++)
+	for (unsigned int i = 0; i < mpListToDelete.size(); i++)
 	{
 		delete mpListToDelete.at(i);
 		mpListToDelete.at(i) = NULL;
@@ -135,7 +135,7 @@ NodeRecord* Dijkstra::getSmallest(vector<NodeRecord*> list)
 	NodeRecord* returnNode;
 
 	returnNode = list.at(0); // start with a default value
-	for (int i = 0; i < list.size(); ++i)
+	for (unsigned int i = 0; i < list.size(); ++i)
 	{
 		temp = list.at(i);
 		// switches the return value to smallest element
@@ -150,7 +150,7 @@ NodeRecord* Dijkstra::getSmallest(vector<NodeRecord*> list)
 int Dijkstra::getNodePosition(vector<NodeRecord*> list, NodeRecord* checkedNode)
 {
 	// check if the node exists in the list
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list.at(i) == checkedNode)
 			return i; // return the existing node position
@@ -162,7 +162,7 @@ int Dijkstra::getNodePosition(vector<NodeRecord*> list, NodeRecord* checkedNode)
 NodeRecord* Dijkstra::getListNode(vector<NodeRecord*> list, NodeRecord* checkedNode)
 {
 	// check if the node exists in the list
-	for (int i = 0; i < list.size(); i++)
+	for (unsigned int i = 0; i < list.size(); i++)
 	{
 		if (list.at(i)->mNode == checkedNode->mNode)
 			return checkedNode; // return the existing node

@@ -67,8 +67,8 @@ bool GameApp::init()
 	mpGridGraph->init();
 
 	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
-	mpPathfinder = new Dijkstra(mpGridGraph);
-	//mpPathfinder = new Astar(mpGridGraph);
+	//mpPathfinder = new Dijkstra(mpGridGraph);
+	mpPathfinder = new Astar(mpGridGraph);
 
 
 	//load buffers

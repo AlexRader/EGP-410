@@ -11,6 +11,7 @@ class GraphicsBuffer;
 class Grid;
 struct NodeRecord;
 
+
 using namespace std;
 
 class Astar : public GridPathfinder

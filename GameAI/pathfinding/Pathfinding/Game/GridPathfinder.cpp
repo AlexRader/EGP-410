@@ -6,6 +6,8 @@
 #include "Game.h"
 #include "GraphicsBuffer.h"
 
+#include <allegro5/allegro_font.h>
+
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
 :Pathfinder(pGraph)
 ,mTimeElapsed(0.0)
@@ -52,6 +54,7 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 
 		//add beginning and ending color
 		mpVisualizer->addColor(mPath.peekNode(0)->getId(), startColor);
+		
 		mpVisualizer->addColor(mPath.peekNode(numNodes - 1)->getId(), stopColor);
 	}
 
