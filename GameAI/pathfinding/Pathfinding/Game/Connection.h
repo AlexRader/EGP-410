@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Trackable.h>
+#include "Node.h"
 class Node;
 
 class Connection:public Trackable

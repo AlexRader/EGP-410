@@ -11,7 +11,7 @@
 
 struct NodeRecord : public Trackable
 {
-	Connection* mMyConnection;
+	NodeRecord* mMyConnection;
 	Node* mNode;
-	int mCost;
+	float mCost;
 };

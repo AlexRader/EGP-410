@@ -20,6 +20,9 @@
 #include "DebugDisplay.h"
 #include "PathfindingDebugContent.h"
 
+#include "Dijkstra.h"
+#include "Astar.h"
+
 #include <fstream>
 #include <vector>
 
@@ -63,7 +66,10 @@ bool GameApp::init()
 	//init the nodes and connections
 	mpGridGraph->init();
 
-	mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
+	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
+	//mpPathfinder = new Dijkstra(mpGridGraph);
+	mpPathfinder = new Astar(mpGridGraph);
+
 
 	//load buffers
 	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");

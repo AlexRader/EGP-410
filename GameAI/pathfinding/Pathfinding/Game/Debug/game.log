@@ -12,15 +12,20 @@
   GameMessage.cpp
   GameApp.cpp
   Dijkstra.cpp
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(33): error C2664: 'void std::vector<Node *,std::allocator<_Ty>>::push_back(_Ty &&)': cannot convert argument 1 from 'NodeRecord *' to 'Node *const &'
-          with
-          [
-              _Ty=Node *
-          ]
-  c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(33): note: Reason: cannot convert from 'NodeRecord *' to 'Node *const '
-  c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(33): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(120): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(135): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(150): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(162): warning C4018: '<': signed/unsigned mismatch
   DepthFirstPathfinder.cpp
   DebugDisplay.cpp
   Connection.cpp
   Astar.cpp
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(66): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(120): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(134): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(149): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(161): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
+  game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.exe
+  game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.pdb (Partial PDB)
