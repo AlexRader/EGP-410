@@ -37,6 +37,8 @@ const Path& Dijkstra::findPath(Node* pFrom, Node* pTo)
 	startRecord->mMyConnection = NULL;
 	startRecord->mCost = 0;
 
+	mpListToDelete.push_back(startRecord);
+
 	// initializing open and closed lists
 	vector<NodeRecord*> open;
 	open.push_back(startRecord);
@@ -110,13 +112,12 @@ const Path& Dijkstra::findPath(Node* pFrom, Node* pTo)
 			mVisitedNodes.push_back(current->mNode); // visualizes the path
 #endif
 			current = current->mMyConnection;
-			//current->mMyConnection
-			//current->mCost = current->mMyConnection;
 		}
 	}
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
+	//cleanup the memory leaks
 	for (int i = 0; i < mpListToDelete.size(); i++)
 	{
 		delete mpListToDelete.at(i);
@@ -131,12 +132,14 @@ NodeRecord* Dijkstra::getSmallest(vector<NodeRecord*> list)
 {
 	//initializes temp and return value
 	NodeRecord* temp;
-	NodeRecord* returnNode = NULL;
+	NodeRecord* returnNode;
+
+	returnNode = list.at(0); // start with a default value
 	for (int i = 0; i < list.size(); ++i)
 	{
 		temp = list.at(i);
 		// switches the return value to smallest element
-		if (returnNode == NULL || temp->mCost < returnNode->mCost)
+		if (temp->mCost < returnNode->mCost)
 			returnNode = temp;
 	}
 

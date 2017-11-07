@@ -27,6 +27,9 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 	gpPerformanceTracker->startTracking("path");
 	mPath.clear();
 
+	//check to exit 
+	bool exitVar = false;
+
 	//list to be deleted
 	vector<NodeRecord*> mpListToDelete;
 	// initialize the startnode and connections
@@ -46,7 +49,7 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 	NodeRecord* current;
 	//position of deleted node
 	int position;
-	while (open.size() > 0)
+	while (!exitVar && open.size() > 0)
 	{
 		//initialize a temp variable to store current node
 		//NodeRecord* current;
@@ -57,11 +60,8 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 		NodeRecord* endNode;
 		float endNodeCost = 0.0f;
 		current = getSmallest(open); // get the next node to be checked
-									 // checks if the current node is the destination else get its connections
-		if (current->mNode == pTo)
-			break;
-		else
-			connections = mpGraph->getConnections(current->mNode->getId());
+		
+		connections = mpGraph->getConnections(current->mNode->getId());
 		// updating connections in open list or adding to open list
 		for (int i = 0; i < connections.size(); i++)
 		{
@@ -94,10 +94,19 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 			//if open does not contain node
 			if (!getListNode(open, endNode))
 				open.push_back(nodeToAdd);
+			if (endNode->mNode == pTo)
+			{
+				current = endNode;
+				exitVar = true;
+				break;
+			}
 		}
-		position = getNodePosition(open, current); // find node position
-		open.erase(open.begin() + position);
-		closed.push_back(current);
+		if (!exitVar)
+		{
+			position = getNodePosition(open, current); // find node position
+			open.erase(open.begin() + position);
+			closed.push_back(current);
+		}
 	}
 	if (current->mNode != pTo)
 	{
@@ -117,6 +126,7 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 	gpPerformanceTracker->stopTracking("path");
 	mTimeElapsed = gpPerformanceTracker->getElapsedTime("path");
 
+	//cleanup the memory leaks
 	for (int i = 0; i < mpListToDelete.size(); i++)
 	{
 		delete mpListToDelete.at(i);
@@ -130,12 +140,14 @@ NodeRecord* Astar::getSmallest(vector<NodeRecord*> list)
 {
 	//initializes temp and return value
 	NodeRecord* temp;
-	NodeRecord* returnNode = NULL;
+	NodeRecord* returnNode;
+
+	returnNode = list.at(0);// start with a default value
 	for (int i = 0; i < list.size(); ++i)
 	{
 		temp = list.at(i);
 		// switches the return value to smallest element
-		if (returnNode == NULL || temp->mCost < returnNode->mCost)
+		if (temp->mCost < returnNode->mCost)
 			returnNode = temp;
 	}
 

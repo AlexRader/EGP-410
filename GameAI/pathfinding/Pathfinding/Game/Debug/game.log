@@ -1,31 +1,15 @@
-﻿  PathToMessage.cpp
-  PathfindingDebugContent.cpp
-  Pathfinder.cpp
-  Path.cpp
-  NodeRecord.cpp
-  Node.cpp
-  main.cpp
-  GridPathfinder.cpp
-  GridGraph.cpp
-  Graph.cpp
-  GameMessageManager.cpp
-  GameMessage.cpp
-  GameApp.cpp
-  Dijkstra.cpp
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(66): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(120): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(135): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(150): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(162): warning C4018: '<': signed/unsigned mismatch
-  DepthFirstPathfinder.cpp
-  DebugDisplay.cpp
-  Connection.cpp
+﻿  Dijkstra.cpp
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(68): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(121): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(138): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(153): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\dijkstra.cpp(165): warning C4018: '<': signed/unsigned mismatch
   Astar.cpp
 c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(66): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(120): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(134): warning C4018: '<': signed/unsigned mismatch
-c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(149): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(130): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(146): warning C4018: '<': signed/unsigned mismatch
 c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(161): warning C4018: '<': signed/unsigned mismatch
+c:\users\student\desktop\ai\egp-410\gameai\pathfinding\pathfinding\game\astar.cpp(173): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.exe
   game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.pdb (Partial PDB)
