@@ -9,11 +9,16 @@
 #include "Vector2D.h"
 
 #include <allegro5/allegro_font.h>
+#include "PathToMessage.h"
+#include "PathDisplayAstarMessage.h"
+#include "PathDisplayDijkstraMessage.h"
 
 InputManager::InputManager()
 {
 	mInitialized = false;
 	pGame = dynamic_cast<GameApp*>(gpGame);
+	mPosStart = NULL;
+	mPosEnd = NULL;
 }
 
 
@@ -66,19 +71,28 @@ void InputManager::update()
 	
 	if (al_mouse_button_down(&mouseState, 1))//left mouse click
 	{
-		//Vector2D pos(mouseState.x, mouseState.y);
-		//GameMessage* pMessage = new PlayerMoveToMessage(pos);
-		//pGame->getMessageManager()->addMessage(pMessage, 0);
+		Vector2D pos(mouseState.x, mouseState.y);
+		setStart(pos);
+		if (getEnd() != NULL)
+		{
+			GameMessage* pMessage = new PathToMessage(pos, getEnd());
+			pGame->getMessageManager()->addMessage(pMessage, 0);
+		}
+	}
+	if (al_mouse_button_down(&mouseState, 2))//right mouse click
+	{
+		Vector2D pos(mouseState.x, mouseState.y);
+		setEnd(pos);
+		if (getStart() != NULL)
+		{
+			GameMessage* pMessage = new PathToMessage(getStart(), pos);
+			pGame->getMessageManager()->addMessage(pMessage, 0);
+		}
 	}
 
-
-
+	
 	//all this should be moved to InputManager!!!
 	{
-		//create mouse text
-		std::stringstream mousePos;
-		mousePos << mouseState.x << ":" << mouseState.y;
-		
 		//get current keyboard state
 		ALLEGRO_KEYBOARD_STATE keyState;
 		al_get_keyboard_state(&keyState);
@@ -92,10 +106,15 @@ void InputManager::update()
 		}
 
 		// theses next 3 functions just change value of the three weights for flocking
-		if (al_key_down(&mCurrentState, ALLEGRO_KEY_X) && !al_key_down(&mPreviousState, ALLEGRO_KEY_X))
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
 		{
-			//GameMessage* pMessage = new WeightChange(2, mSwitched);
-			//pGame->getMessageManager()->addMessage(pMessage, 0);
+			GameMessage* pMessage = new PathDisplayAstarMessage("ASTAR");
+			pGame->getMessageManager()->addMessage(pMessage, 0);
+		}
+		if (al_key_down(&mCurrentState, ALLEGRO_KEY_D) && !al_key_down(&mPreviousState, ALLEGRO_KEY_D))
+		{
+			GameMessage* pMessage = new PathDisplayDijkstraMessage("Dijkstra");
+			pGame->getMessageManager()->addMessage(pMessage, 0);
 		}
 
 		mPreviousState = mCurrentState;

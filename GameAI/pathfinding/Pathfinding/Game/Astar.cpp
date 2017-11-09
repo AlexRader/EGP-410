@@ -29,9 +29,11 @@ Astar::~Astar()
 
 const Path& Astar::findPath(Node* pFrom, Node* pTo)
 {
+	// debug for time and such
 	gpPerformanceTracker->clearTracker("path");
 	gpPerformanceTracker->startTracking("path");
-	mPath.clear();
+
+	mPath.clear(); // clean up pre-existing path
 
 	//check to exit 
 	bool exitVar = false;
@@ -53,17 +55,21 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 
 	//initialize a temp variable to store current node
 	NodeRecord* current;
+
 	//position of deleted node
 	int position;
+
 	while (!exitVar && open.size() > 0)
 	{
 		//initialize a temp variable to store current node
-		//NodeRecord* current;
 		NodeRecord* nodeToAdd;
+
 		//initializes the connections
 		vector<Connection*> connections;
+
 		//initializes the end node and end node cost
 		NodeRecord* endNode;
+
 		float endNodeCost = 0.0f;
 		current = getSmallest(open, pTo); // get the next node to be checked
 		
@@ -89,12 +95,9 @@ const Path& Astar::findPath(Node* pFrom, Node* pTo)
 			}
 			else // found a new node
 			{
-				//nodeToAdd = endNode;
 				nodeToAdd = endNode;
-				nodeToAdd->mNode = endNode->mNode;
 			}
 			//updating cost and connections
-			nodeToAdd->mCost = endNodeCost;
 			nodeToAdd->mMyConnection = current;
 
 			//if open does not contain node

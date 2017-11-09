@@ -95,6 +95,8 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeRecord.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="PathDisplayAstarMessage.h" />
+    <ClInclude Include="PathDisplayDijkstraMessage.h" />
     <ClInclude Include="Pathfinder.h" />
     <ClInclude Include="PathfindingDebugContent.h" />
     <ClInclude Include="PathToMessage.h" />
@@ -116,6 +118,8 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeRecord.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="PathDisplayAstarMessage.cpp" />
+    <ClCompile Include="PathDisplayDijkstraMessage.cpp" />
     <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="PathfindingDebugContent.cpp" />
     <ClCompile Include="PathToMessage.cpp" />

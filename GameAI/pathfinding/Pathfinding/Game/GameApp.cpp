@@ -22,6 +22,7 @@
 
 #include "Dijkstra.h"
 #include "Astar.h"
+#include "InputManager.h"
 
 #include <fstream>
 #include <vector>
@@ -29,6 +30,7 @@
 const IDType BACKGROUND_ID = ENDING_SEQUENTIAL_ID + 1;
 const int GRID_SQUARE_SIZE = 32;
 const std::string gFileName = "pathgrid.txt";
+const float PATH_COLOR_MAX = 255;
 
 GameApp::GameApp()
 :mpMessageManager(NULL)
@@ -36,6 +38,7 @@ GameApp::GameApp()
 ,mpGridGraph(NULL)
 ,mpPathfinder(NULL)
 ,mpDebugDisplay(NULL)
+,mpInputManager(NULL)
 {
 }
 
@@ -67,9 +70,8 @@ bool GameApp::init()
 	mpGridGraph->init();
 
 	//mpPathfinder = new DepthFirstPathfinder(mpGridGraph);
-	//mpPathfinder = new Dijkstra(mpGridGraph);
-	mpPathfinder = new Astar(mpGridGraph);
-
+	mpPathfinder = new Dijkstra(mpGridGraph);
+	//mpPathfinder = new Astar(mpGridGraph);
 
 	//load buffers
 	mpGraphicsBufferManager->loadBuffer( BACKGROUND_ID, "wallpaper.bmp");
@@ -84,6 +86,8 @@ bool GameApp::init()
 	//debug display
 	PathfindingDebugContent* pContent = new PathfindingDebugContent( mpPathfinder );
 	mpDebugDisplay = new DebugDisplay( Vector2D(0,12), pContent );
+
+	mpInputManager = new InputManager();
 
 	mpMasterTimer->start();
 	return true;
@@ -103,11 +107,17 @@ void GameApp::cleanup()
 	delete mpGridGraph;
 	mpGridGraph = NULL;
 
-	delete mpPathfinder;
-	mpPathfinder = NULL;
+	if (mpPathfinder != NULL)
+	{
+		delete mpPathfinder;
+		mpPathfinder = NULL;
+	}
 
 	delete mpDebugDisplay;
 	mpDebugDisplay = NULL;
+
+	delete mpInputManager;
+	mpInputManager = NULL;
 }
 
 void GameApp::beginLoop()
@@ -131,20 +141,7 @@ void GameApp::processLoop()
 
 	mpMessageManager->processMessagesForThisframe();
 
-	ALLEGRO_MOUSE_STATE mouseState;
-	al_get_mouse_state( &mouseState );
-
-	if( al_mouse_button_down( &mouseState, 1 ) )//left mouse click
-	{
-		static Vector2D lastPos( 0.0f, 0.0f );
-		Vector2D pos( mouseState.x, mouseState.y );
-		if( lastPos.getX() != pos.getX() || lastPos.getY() != pos.getY() )
-		{
-			GameMessage* pMessage = new PathToMessage( lastPos, pos );
-			mpMessageManager->addMessage( pMessage, 0 );
-			lastPos = pos;
-		}
-	}
+	mpInputManager->update();
 
 	//should be last thing in processLoop
 	Game::processLoop();
@@ -153,4 +150,35 @@ void GameApp::processLoop()
 bool GameApp::endLoop()
 {
 	return Game::endLoop();
+}
+
+void GameApp::changePath(std::string pathAlgorithm)
+{
+	if (mpPathfinder != NULL)
+	{
+		delete mpPathfinder;
+		mpPathfinder = NULL;
+		delete mpDebugDisplay;
+		mpDebugDisplay = NULL;
+	}
+	if (pathAlgorithm == "ASTAR")
+	{
+		mpPathfinder = new Astar(mpGridGraph);
+		mpPathfinder->setPathColor(0, 0, PATH_COLOR_MAX);
+	}
+	else
+	{
+		mpPathfinder = new Dijkstra(mpGridGraph);
+		mpPathfinder->setPathColor(PATH_COLOR_MAX, 0, 0);
+	}
+
+	//debug display
+	PathfindingDebugContent* pContent = new PathfindingDebugContent(mpPathfinder);
+	mpDebugDisplay = new DebugDisplay(Vector2D(0, 12), pContent);
+
+	GameMessage* pMessage = new PathToMessage(mpInputManager->getStart()
+											  , mpInputManager->getEnd());
+	getMessageManager()->addMessage(pMessage, 0);
+
+
 }

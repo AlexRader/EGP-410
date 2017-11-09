@@ -11,6 +11,7 @@
 GridPathfinder::GridPathfinder( GridGraph* pGraph )
 :Pathfinder(pGraph)
 ,mTimeElapsed(0.0)
+,mPathColor(al_map_rgb(0.0f, 0.0f, 0.0f))
 {
 #ifdef VISUALIZE_PATH
 	mpVisualizer = NULL;
@@ -36,12 +37,12 @@ void GridPathfinder::drawVisualization( Grid* pGrid, GraphicsBuffer* pDest )
 		mpVisualizer->clear();
 	}
 
-	static ALLEGRO_COLOR pathColor = al_map_rgb( 255, 64, 64 );
+	//static ALLEGRO_COLOR pathColor = al_map_rgb( 255, 64, 64 );
 	static ALLEGRO_COLOR startColor = al_map_rgb(1, 255, 128);
 	static ALLEGRO_COLOR stopColor = al_map_rgb(1, 128, 255);
 
 	unsigned int numNodes = mPath.getNumNodes();
-	ALLEGRO_COLOR currentPathColor = pathColor;
+	ALLEGRO_COLOR currentPathColor = mPathColor;
 
 	if (numNodes > 0)
 	{

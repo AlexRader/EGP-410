@@ -78,6 +78,12 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PathDisplayAstarMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathDisplayDijkstraMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMessage.cpp">
@@ -135,6 +141,12 @@
       <Filter>Source Files\pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathDisplayAstarMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathDisplayDijkstraMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

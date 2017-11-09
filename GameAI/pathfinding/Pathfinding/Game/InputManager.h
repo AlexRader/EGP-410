@@ -2,6 +2,7 @@
 
 #include "Trackable.h"
 #include <allegro5/allegro.h>
+#include "Vector2D.h"
 
 class InputManager : public Trackable
 {
@@ -16,6 +17,15 @@ public:
 
 	inline void setSwitch(float var) { mSwitched = var; };
 
+	//starts and end points
+	inline void setStart(Vector2D start) { mPosStart = start; };
+	inline void setEnd(Vector2D end) { mPosEnd = end; };
+
+	inline Vector2D getStart() { return mPosStart; };
+	inline Vector2D getEnd() { return mPosEnd; };
+
+
+
 private:
 	bool mInitialized;
 	float mSwitched;
@@ -23,5 +33,7 @@ private:
 	ALLEGRO_KEYBOARD_STATE mCurrentState;
 
 	GameApp* pGame;
+
+	Vector2D mPosStart, mPosEnd;
 
 };
