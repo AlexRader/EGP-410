@@ -84,6 +84,9 @@
     <ClInclude Include="PathDisplayDijkstraMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EscapeMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMessage.cpp">
@@ -147,6 +150,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PathDisplayDijkstraMessage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EscapeMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

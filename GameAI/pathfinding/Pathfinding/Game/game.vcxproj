@@ -85,6 +85,7 @@
     <ClInclude Include="DebugDisplay.h" />
     <ClInclude Include="DepthFirstPathfinder.h" />
     <ClInclude Include="Dijkstra.h" />
+    <ClInclude Include="EscapeMessage.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GameMessage.h" />
     <ClInclude Include="GameMessageManager.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="DebugDisplay.cpp" />
     <ClCompile Include="DepthFirstPathfinder.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="EscapeMessage.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="GameMessageManager.cpp" />

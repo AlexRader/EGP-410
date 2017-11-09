@@ -12,6 +12,7 @@
 #include "PathToMessage.h"
 #include "PathDisplayAstarMessage.h"
 #include "PathDisplayDijkstraMessage.h"
+#include "EscapeMessage.h"
 
 InputManager::InputManager()
 {
@@ -68,7 +69,12 @@ void InputManager::update()
 	//get mouse state
 	ALLEGRO_MOUSE_STATE mouseState;
 	al_get_mouse_state(&mouseState);
-	
+	//get current keyboard state
+	ALLEGRO_KEYBOARD_STATE keyState;
+	al_get_keyboard_state(&keyState);
+	al_get_keyboard_state(&mCurrentState);
+
+	//place start and stop positions
 	if (al_mouse_button_down(&mouseState, 1))//left mouse click
 	{
 		Vector2D pos(mouseState.x, mouseState.y);
@@ -90,33 +96,24 @@ void InputManager::update()
 		}
 	}
 
-	
-	//all this should be moved to InputManager!!!
+	//if escape key was down then exit the loop
+	if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
 	{
-		//get current keyboard state
-		ALLEGRO_KEYBOARD_STATE keyState;
-		al_get_keyboard_state(&keyState);
-		al_get_keyboard_state(&mCurrentState);
-		//if escape key was down then exit the loop
-		
-		if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
-		{
-			//GameMessage* pMessage = new EscapeMessage();
-			//pGame->getMessageManager()->addMessage(pMessage, 0);
-		}
-
-		// theses next 3 functions just change value of the three weights for flocking
-		if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
-		{
-			GameMessage* pMessage = new PathDisplayAstarMessage("ASTAR");
-			pGame->getMessageManager()->addMessage(pMessage, 0);
-		}
-		if (al_key_down(&mCurrentState, ALLEGRO_KEY_D) && !al_key_down(&mPreviousState, ALLEGRO_KEY_D))
-		{
-			GameMessage* pMessage = new PathDisplayDijkstraMessage("Dijkstra");
-			pGame->getMessageManager()->addMessage(pMessage, 0);
-		}
-
-		mPreviousState = mCurrentState;
+		GameMessage* pMessage = new EscapeMessage();
+		pGame->getMessageManager()->addMessage(pMessage, 0);
 	}
+
+	//A* or Dijkstra pathfinding
+	if (al_key_down(&mCurrentState, ALLEGRO_KEY_A) && !al_key_down(&mPreviousState, ALLEGRO_KEY_A))
+	{
+		GameMessage* pMessage = new PathDisplayAstarMessage("ASTAR");
+		pGame->getMessageManager()->addMessage(pMessage, 0);
+	}
+	if (al_key_down(&mCurrentState, ALLEGRO_KEY_D) && !al_key_down(&mPreviousState, ALLEGRO_KEY_D))
+	{
+		GameMessage* pMessage = new PathDisplayDijkstraMessage("Dijkstra");
+		pGame->getMessageManager()->addMessage(pMessage, 0);
+	}
+
+	mPreviousState = mCurrentState;
 }

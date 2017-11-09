@@ -3,7 +3,7 @@
 #include "GameApp.h"
 
 PathDisplayDijkstraMessage::PathDisplayDijkstraMessage(const std::string path)
-	:GameMessage(ASTART_TRACK_MESSAGE)
+	:GameMessage(DIJKSTRA_TRACK_MESSAGE)
 	, mPathType(path)
 {
 }

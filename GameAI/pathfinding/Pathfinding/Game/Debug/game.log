@@ -1,14 +1,12 @@
-﻿  Dijkstra.cpp
-  DepthFirstPathfinder.cpp
-  Astar.cpp
+﻿  InputManager.cpp
   Generating Code...
   Skipping... (no relevant changes detected)
   PathToMessage.cpp
   PathDisplayDijkstraMessage.cpp
   PathDisplayAstarMessage.cpp
-  InputManager.cpp
   GameMessageManager.cpp
   GameMessage.cpp
   GameApp.cpp
+  EscapeMessage.cpp
   game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.exe
   game.vcxproj -> C:\Users\Student\Desktop\AI\EGP-410\GameAI\pathfinding\Pathfinding\Debug\game.pdb (Partial PDB)

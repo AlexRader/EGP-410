@@ -29,7 +29,7 @@
 
 const IDType BACKGROUND_ID = ENDING_SEQUENTIAL_ID + 1;
 const int GRID_SQUARE_SIZE = 32;
-const std::string gFileName = "pathgrid.txt";
+const std::string gFileName = "pathgridExample.txt";
 const float PATH_COLOR_MAX = 255;
 
 GameApp::GameApp()
@@ -152,6 +152,7 @@ bool GameApp::endLoop()
 	return Game::endLoop();
 }
 
+//changes the search from dijkstra to A* and back
 void GameApp::changePath(std::string pathAlgorithm)
 {
 	if (mpPathfinder != NULL)
@@ -179,6 +180,4 @@ void GameApp::changePath(std::string pathAlgorithm)
 	GameMessage* pMessage = new PathToMessage(mpInputManager->getStart()
 											  , mpInputManager->getEnd());
 	getMessageManager()->addMessage(pMessage, 0);
-
-
 }
